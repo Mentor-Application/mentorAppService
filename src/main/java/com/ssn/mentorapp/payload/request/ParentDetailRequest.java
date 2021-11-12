@@ -7,6 +7,7 @@ public class ParentDetailRequest {
 	private String parentName;
 	private String address;
 	private String emailId;
+	
 	public String getParentId() {
 		return parentId;
 	}

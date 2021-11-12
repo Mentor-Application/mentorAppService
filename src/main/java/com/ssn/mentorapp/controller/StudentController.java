@@ -10,9 +10,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssn.mentorapp.model.SchoolRecord;
 import com.ssn.mentorapp.model.Student;
+import com.ssn.mentorapp.payload.request.ChallengesRequest;
+import com.ssn.mentorapp.payload.request.FamilyProfileRequest;
+import com.ssn.mentorapp.payload.request.GoalsGridRequest;
+import com.ssn.mentorapp.payload.request.HobbiesRequest;
 import com.ssn.mentorapp.payload.request.LocalGuardianRequest;
 import com.ssn.mentorapp.payload.request.ParentDetailRequest;
+import com.ssn.mentorapp.payload.request.SchoolRecordRequest;
+import com.ssn.mentorapp.payload.request.StrengthAssessmentRequest;
 import com.ssn.mentorapp.payload.request.StudentDetailsRequest;
 import com.ssn.mentorapp.service.StudentService;
 
@@ -44,4 +51,39 @@ public class StudentController {
 		return ResponseEntity.ok(newStudent);
 	}
 	
+	@PostMapping("/schoolrecord")
+	public ResponseEntity<?> setSchoolRecord(@RequestBody SchoolRecordRequest schoolRecordRequest){
+		Student newStudent = studentService.updateschoolRecordDetails(schoolRecordRequest);
+		return ResponseEntity.ok(newStudent);
+	}
+	
+	@PostMapping("/familyprofile")
+	public ResponseEntity<?> setFamilyProfile(@RequestBody FamilyProfileRequest familyProfileRequest){
+		Student newStudent = studentService.updatefamilyProfileDetails(familyProfileRequest);
+		return ResponseEntity.ok(newStudent);
+	}
+	
+	@PostMapping("/hobbies")
+	public ResponseEntity<?> setHobbies(@RequestBody HobbiesRequest hobbiesRequest){
+		Student newStudent = studentService.updatehobbies(hobbiesRequest);
+		return ResponseEntity.ok(newStudent);
+	}
+	
+	@PostMapping("/strengthassessment")
+	public ResponseEntity<?> setStrengthAssessment(@RequestBody StrengthAssessmentRequest strengthAssessmentRequest){
+		Student newStudent = studentService.updatestrengthAssessment(strengthAssessmentRequest);
+		return ResponseEntity.ok(newStudent);
+	}
+	
+	@PostMapping("/goalsgrid")
+	public ResponseEntity<?> setGoalsGrid(@RequestBody GoalsGridRequest goalsGridRequest){
+		Student newStudent = studentService.updategoalsGrid(goalsGridRequest);
+		return ResponseEntity.ok(newStudent);
+	}
+	
+	@PostMapping("/challenges")
+	public ResponseEntity<?> setChallenges(@RequestBody ChallengesRequest challengesRequest){
+		Student newStudent = studentService.updatechallenges(challengesRequest);
+		return ResponseEntity.ok(newStudent);
+	}
 }
