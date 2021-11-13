@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssn.mentorapp.model.User;
-import com.ssn.mentorapp.payload.request.UserRequest;
 import com.ssn.mentorapp.repository.UserRepository;
 
 @Service
