@@ -3,7 +3,6 @@ package com.ssn.mentorapp.payload.request;
 public class FamilyProfileRequest {
 	
 	private String studentId;
-	private String familyProfileId;
 	private String relationShip;
 	private Integer age;
 	private String educationalQualification;
@@ -19,13 +18,6 @@ public class FamilyProfileRequest {
 		this.studentId = studentId;
 	}
 	
-	public String getFamilyProfileId() {
-		return familyProfileId;
-	}
-	
-	public void setFamilyProfileId(String familyProfileId) {
-		this.familyProfileId = familyProfileId;
-	}
 	
 	public String getRelationShip() {
 		return relationShip;

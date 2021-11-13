@@ -3,13 +3,13 @@ package com.ssn.mentorapp.payload.request;
 public class SchoolRecordRequest {
 	
 	private String studentId;
-	private String schoolRecordId;
+
 	private String course;
 	private String yearPassedOut;
 	private String nameOfSchool;
 	private String board;
 	private String percentage;
-	
+	private String twelfthCutOff;
 	
 	public String getStudentId() {
 		return studentId;
@@ -19,13 +19,7 @@ public class SchoolRecordRequest {
 		this.studentId = studentId;
 	}
 	
-	public String getSchoolRecordId() {
-		return schoolRecordId;
-	}
 	
-	public void setSchoolRecordId(String schoolRecordId) {
-		this.schoolRecordId = schoolRecordId;
-	}
 	
 	public String getCourse() {
 		return course;
@@ -65,6 +59,16 @@ public class SchoolRecordRequest {
 	
 	public void setPercentage(String percentage) {
 		this.percentage = percentage;
+	}
+
+	public String getTwelfthCutOff() {
+		return twelfthCutOff;
+	}
+
+	public void setTwelfthCutOff(String twelfthCutOff) {
+		this.twelfthCutOff = twelfthCutOff;
 	} 
+	
+	
 
 }

@@ -2,18 +2,13 @@ package com.ssn.mentorapp.payload.request;
 
 public class LocalGuardianRequest {
 	
-	private	String guardianId;
+
 	private	String guardianName;
 	private	String address;
 	private	String mobileNumber;
 	private	String emailId;
 	private String studentId;
-	public String getGuardianId() {
-		return guardianId;
-	}
-	public void setGuardianId(String guardianId) {
-		this.guardianId = guardianId;
-	}
+	
 	public String getGuardianName() {
 		return guardianName;
 	}

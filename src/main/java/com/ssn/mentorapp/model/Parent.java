@@ -11,6 +11,7 @@ public class Parent {
 	private String parentName;
 	private String address;
 	private String emailId;
+	private String studentId;
 	
 	public String getParentId() {
 		return parentId;
@@ -36,4 +37,12 @@ public class Parent {
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
+	public String getStudentId() {
+		return studentId;
+	}
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
+	}
+	
+	
 }

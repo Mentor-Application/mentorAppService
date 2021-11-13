@@ -3,7 +3,7 @@ package com.ssn.mentorapp.payload.request;
 public class StrengthAssessmentRequest {
 	
 	private String studentId;
-	private String strengthAssesmentId;
+
 	private String iAm;
 	private String iCan;
 	private String iHave;
@@ -17,13 +17,6 @@ public class StrengthAssessmentRequest {
 		this.studentId = studentId;
 	}
 
-	public String getStrengthAssesmentId() {
-		return strengthAssesmentId;
-	}
-
-	public void setStrengthAssesmentId(String strengthAssesmentId) {
-		this.strengthAssesmentId = strengthAssesmentId;
-	}
 
 	public String getiAm() {
 		return iAm;

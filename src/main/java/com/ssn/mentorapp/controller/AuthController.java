@@ -19,9 +19,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssn.mentorapp.repository.MentorRepository;
+import com.ssn.mentorapp.repository.ParentRepository;
 import com.ssn.mentorapp.repository.RoleRepository;
+import com.ssn.mentorapp.repository.StudentRepository;
 import com.ssn.mentorapp.model.ERole;
+import com.ssn.mentorapp.model.Mentor;
+import com.ssn.mentorapp.model.Parent;
 import com.ssn.mentorapp.model.Role;
+import com.ssn.mentorapp.model.Student;
 import com.ssn.mentorapp.model.User;
 import com.ssn.mentorapp.payload.request.AuthenticationRequest;
 import com.ssn.mentorapp.payload.request.SignUpRequest;
@@ -50,6 +56,15 @@ public class AuthController {
 	
 	@Autowired
 	private RoleRepository roleRepository;
+	
+	@Autowired
+	private ParentRepository parentRepository;
+	
+	@Autowired
+	private MentorRepository mentorRepository;
+	
+	@Autowired
+	private StudentRepository studentRepository;
 
 	
 	@PostMapping("/login")
@@ -90,6 +105,12 @@ public class AuthController {
 			Role studentRole = roleRepository.findByRoleName(ERole.STUDENT)
 					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 			roles.add(studentRole);
+			Student newStudent  = new Student();
+			newStudent.setEmailId(signUpRequest.getEmail());
+			studentRepository.save(newStudent);
+			Student existingStudent = studentRepository.findByEmailId(signUpRequest.getEmail()).get();
+			user.setStudentId(existingStudent.getStudentId());
+			
 		} else {
 			strRoles.forEach(role -> {
 				switch (role) {
@@ -97,13 +118,19 @@ public class AuthController {
 					Role adminRole = roleRepository.findByRoleName(ERole.ADMIN)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(adminRole);
-
+		
 					break;
 				case "mentor":
 					Role mentorRole = roleRepository.findByRoleName(ERole.MENTOR)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(mentorRole);
-
+					Mentor newMentor = new Mentor();
+					newMentor.setMentorName(signUpRequest.getUserName());
+					newMentor.setEmail(signUpRequest.getEmail());
+					mentorRepository.save(newMentor);
+					Mentor existingMentor = mentorRepository.findByEmail(signUpRequest.getEmail()).get();
+					user.setMentorId(existingMentor.getMentorId());
+					
 					break;
 				case "faculty":
 					Role facultyRole = roleRepository.findByRoleName(ERole.FACULTY)
@@ -114,11 +141,21 @@ public class AuthController {
 					Role parentRole = roleRepository.findByRoleName(ERole.PARENT)
 					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(parentRole);
+					Parent parent = new Parent();
+					parent.setEmailId(signUpRequest.getEmail());
+					parentRepository.save(parent);
+					Parent existingParent = parentRepository.findByEmailId(signUpRequest.getEmail()).get();
+					user.setParentId(existingParent.getParentId());
 					break;
 				default:
 					Role userRole = roleRepository.findByRoleName(ERole.STUDENT)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(userRole);
+					Student newStudent  = new Student();
+					newStudent.setEmailId(signUpRequest.getEmail());
+					studentRepository.save(newStudent);
+					Student existingStudent = studentRepository.findByEmailId(signUpRequest.getEmail()).get();
+					user.setStudentId(existingStudent.getStudentId());
 				}
 			});
 		}

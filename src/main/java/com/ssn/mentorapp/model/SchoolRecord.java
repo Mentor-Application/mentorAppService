@@ -13,6 +13,7 @@ public class SchoolRecord {
 	private String nameOfSchool;
 	private String board;
 	private String percentage;
+	private String twelfthCutOff;
 	
 	public String getSchoolRecordId() {
 		return schoolRecordId;
@@ -60,6 +61,14 @@ public class SchoolRecord {
 	
 	public void setPercentage(String percentage) {
 		this.percentage = percentage;
+	}
+
+	public String getTwelfthCutOff() {
+		return twelfthCutOff;
+	}
+
+	public void setTwelfthCutOff(String twelfthCutOff) {
+		this.twelfthCutOff = twelfthCutOff;
 	} 
 	
 	

@@ -3,7 +3,6 @@ package com.ssn.mentorapp.payload.request;
 public class GoalsGridRequest {
 	
 	private String studentId;
-	private String goalId;
 	private String domain;
 	private String goal;
 	private String planOfAction;
@@ -17,14 +16,7 @@ public class GoalsGridRequest {
 		this.studentId = studentId;
 	}
 
-	public String getGoalId() {
-		return goalId;
-	}
-	
-	public void setGoalId(String goalId) {
-		this.goalId = goalId;
-	}
-	
+
 	public String getDomain() {
 		return domain;
 	}

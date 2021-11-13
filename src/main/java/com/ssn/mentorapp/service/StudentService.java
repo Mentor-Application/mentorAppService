@@ -2,6 +2,9 @@ package com.ssn.mentorapp.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +14,6 @@ import com.ssn.mentorapp.model.FamilyProfile;
 import com.ssn.mentorapp.model.GoalsGrid;
 import com.ssn.mentorapp.model.Hobbies;
 import com.ssn.mentorapp.model.LocalGuardian;
-import com.ssn.mentorapp.model.Parent;
 import com.ssn.mentorapp.model.SchoolRecord;
 import com.ssn.mentorapp.model.StrengthAssessment;
 import com.ssn.mentorapp.model.Student;
@@ -20,10 +22,10 @@ import com.ssn.mentorapp.payload.request.FamilyProfileRequest;
 import com.ssn.mentorapp.payload.request.GoalsGridRequest;
 import com.ssn.mentorapp.payload.request.HobbiesRequest;
 import com.ssn.mentorapp.payload.request.LocalGuardianRequest;
-import com.ssn.mentorapp.payload.request.ParentDetailRequest;
 import com.ssn.mentorapp.payload.request.SchoolRecordRequest;
 import com.ssn.mentorapp.payload.request.StrengthAssessmentRequest;
 import com.ssn.mentorapp.payload.request.StudentDetailsRequest;
+import com.ssn.mentorapp.payload.response.StudentResponse;
 import com.ssn.mentorapp.repository.StudentRepository;
 
 @Service
@@ -34,7 +36,7 @@ public class StudentService {
 	
 	
 	public Student updateStudentProfile(StudentDetailsRequest studentDetailsRequest) throws ParseException {
-		Student newStudent = new Student();
+		Student newStudent = studentRepository.findByEmailId(studentDetailsRequest.getEmailId()).get();
 		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 		newStudent.setStudentId(studentDetailsRequest.getStudentId());
 		newStudent.setStudentName(studentDetailsRequest.getStudentName());
@@ -55,32 +57,16 @@ public class StudentService {
 		newStudent.setPhoto(studentDetailsRequest.getPhoto());
 		newStudent.setRoomNumber(studentDetailsRequest.getRoomNumber());
 		newStudent.setBusRouteNumber(studentDetailsRequest.getBusRouteNumber());
-		newStudent.setEmailId(studentDetailsRequest.getEmailId());
-		
+		newStudent.setEmailId(studentDetailsRequest.getEmailId());	
 		return studentRepository.save(newStudent);
 	}
 	
 	
-	public Student updateParentDetails(ParentDetailRequest parentDetailRequest) {
-
-		Student newStudent = studentRepository.findById(parentDetailRequest.getStudentId()).get();
-		Parent parent = new Parent();
-		parent.setParentId(parentDetailRequest.getParentId());
-		parent.setParentName(parentDetailRequest.getParentName());
-		parent.setAddress(parentDetailRequest.getAddress());
-		parent.setEmailId(parentDetailRequest.getEmailId());
-		
-		newStudent.setStudentId(parentDetailRequest.getStudentId());
-		newStudent.setParent(parent);
-		
-		return studentRepository.save(newStudent);
-	}
 	
 	
 	public Student updateLocalGuardianDetails(LocalGuardianRequest localGuardianRequest) {
 		Student newStudent = studentRepository.findById(localGuardianRequest.getStudentId()).get();
 		LocalGuardian localGuardian = new LocalGuardian();
-		localGuardian.setGuardianId(localGuardianRequest.getGuardianId());
 		localGuardian.setGuardianName(localGuardianRequest.getGuardianName());
 		localGuardian.setMobileNumber(localGuardianRequest.getMobileNumber());
 		localGuardian.setEmailId(localGuardianRequest.getEmailId());
@@ -92,53 +78,59 @@ public class StudentService {
 		return studentRepository.save(newStudent);
 	}
 	
-	public Student updateschoolRecordDetails(SchoolRecordRequest schoolRequest) {
-		Student newStudent = studentRepository.findById(schoolRequest.getStudentId()).get();
-		SchoolRecord schoolRecord = new SchoolRecord();
-		schoolRecord.setSchoolRecordId(schoolRequest.getSchoolRecordId());
-		schoolRecord.setCourse(schoolRequest.getCourse());
-		schoolRecord.setYearPassedOut(schoolRequest.getYearPassedOut());
-		schoolRecord.setNameOfSchool(schoolRequest.getNameOfSchool());
-		schoolRecord.setBoard(schoolRequest.getBoard());
+	public Student updateschoolRecordDetails(List<SchoolRecordRequest> schoolRequest) {
 		
-		newStudent.setStudentId(schoolRequest.getStudentId());
-		newStudent.setSchoolRecord(schoolRecord);
+		Student newStudent = studentRepository.findById(schoolRequest.get(0).getStudentId()).get();
+		
+		List<SchoolRecord> recordList = new ArrayList<SchoolRecord>();
+		recordList = schoolRequest.stream().map(schoolReq ->{
+				SchoolRecord schoolRecord = new SchoolRecord();
+				schoolRecord.setCourse(schoolReq.getCourse());
+				schoolRecord.setYearPassedOut(schoolReq.getYearPassedOut());
+				schoolRecord.setNameOfSchool(schoolReq.getNameOfSchool());
+				schoolRecord.setBoard(schoolReq.getBoard());
+				schoolRecord.setTwelfthCutOff(schoolReq.getTwelfthCutOff());
+				return schoolRecord;			
+		}).collect(Collectors.toList());	
+		newStudent.setSchoolRecord(recordList);	
+		return studentRepository.save(newStudent);
+	}
+	
+	public Student updatefamilyProfileDetails(List<FamilyProfileRequest> familyRequest) {
+		
+		Student newStudent = studentRepository.findById(familyRequest.get(0).getStudentId()).get();
+		List<FamilyProfile> familyList = new ArrayList<FamilyProfile>();
+		
+		for (int i= 0;i<familyRequest.size();i++) {
+			FamilyProfile familyProfile = new FamilyProfile();
+			familyProfile.setRelationShip(familyRequest.get(i).getRelationShip());
+			familyProfile.setAge(familyRequest.get(i).getAge());
+			familyProfile.setEducationalQualification(familyRequest.get(i).getEducationalQualification());
+			familyProfile.setOccupation(familyRequest.get(i).getOccupation());
+			familyProfile.setAnnualIncome(familyRequest.get(i).getAnnualIncome());
+			familyList.add(familyProfile);	
+		}
+		
+		newStudent.setFamilyProfile(familyList);
 		
 		return studentRepository.save(newStudent);
 	}
 	
-	public Student updatefamilyProfileDetails(FamilyProfileRequest familyRequest) {
-		Student newStudent = studentRepository.findById(familyRequest.getStudentId()).get();
-		FamilyProfile familyProfile = new FamilyProfile();
-		familyProfile.setFamilyProfileId(familyRequest.getFamilyProfileId());
-		familyProfile.setRelationShip(familyRequest.getRelationShip());
-		familyProfile.setAge(familyRequest.getAge());
-		familyProfile.setEducationalQualification(familyRequest.getEducationalQualification());
-		familyProfile.setOccupation(familyRequest.getOccupation());
-		familyProfile.setAnnualIncome(familyRequest.getAnnualIncome());
-		
-		newStudent.setStudentId(familyRequest.getStudentId());
-		newStudent.setFamilyProfile(familyProfile);
-		
-		return studentRepository.save(newStudent);
-	}
-	
-	public Student updatehobbies(HobbiesRequest hobbiesRequest) {
-		Student newStudent = studentRepository.findById(hobbiesRequest.getStudentId()).get();
-		Hobbies hobbies = new Hobbies();
-		hobbies.setHobbieId(hobbiesRequest.getHobbieId());
-		hobbies.setHobbie(hobbiesRequest.getHobbie());
-		
-		newStudent.setStudentId(hobbiesRequest.getStudentId());
-		newStudent.setHobbies(hobbies);
-		
+	public Student updatehobbies(List<HobbiesRequest> hobbiesRequest) {
+		Student newStudent = studentRepository.findById(hobbiesRequest.get(0).getStudentId()).get();
+		List<Hobbies> hobbieList = new ArrayList<Hobbies>();
+		for (int i= 0;i<hobbiesRequest.size();i++) {
+			Hobbies hobbies = new Hobbies();
+			hobbies.setHobbie(hobbiesRequest.get(i).getHobbie());
+			hobbieList.add(hobbies);
+		}	
+		newStudent.setHobbies(hobbieList);
 		return studentRepository.save(newStudent);
 	}
 	
 	public Student updatestrengthAssessment(StrengthAssessmentRequest strengthAssessmentRequest) {
 		Student newStudent = studentRepository.findById(strengthAssessmentRequest.getStudentId()).get();
 		StrengthAssessment strengthAssessment = new StrengthAssessment();
-		strengthAssessment.setStrengthAssesmentId(strengthAssessmentRequest.getStrengthAssesmentId());
 		strengthAssessment.setiAm(strengthAssessmentRequest.getiAm());
 		strengthAssessment.setiCan(strengthAssessmentRequest.getiCan());
 		strengthAssessment.setiHave(strengthAssessmentRequest.getiHave());
@@ -149,32 +141,97 @@ public class StudentService {
 		return studentRepository.save(newStudent);
 	}
 	
-	public Student updategoalsGrid(GoalsGridRequest goalGridRequest) {
-		Student newStudent = studentRepository.findById(goalGridRequest.getStudentId()).get();
-		GoalsGrid goalsGrid = new GoalsGrid();
-		goalsGrid.setGoalId(goalGridRequest.getGoalId());
-		goalsGrid.setDomain(goalGridRequest.getDomain());
-		goalsGrid.setGoal(goalGridRequest.getGoal());
-		goalsGrid.setPlanOfAction(goalGridRequest.getPlanOfAction());
+	public Student updategoalsGrid(List<GoalsGridRequest> goalGridRequest) {
+		Student newStudent = studentRepository.findById(goalGridRequest.get(0).getStudentId()).get();
+		List<GoalsGrid> goalsList = new ArrayList<GoalsGrid>();
 		
-		newStudent.setStudentId(goalGridRequest.getStudentId());
-		newStudent.setGoalsGrid(goalsGrid);
+		for (int i= 0;i<goalGridRequest.size();i++) {
+			GoalsGrid goalsGrid = new GoalsGrid();
+			goalsGrid.setDomain(goalGridRequest.get(i).getDomain());
+			goalsGrid.setGoal(goalGridRequest.get(i).getGoal());
+			goalsGrid.setPlanOfAction(goalGridRequest.get(i).getPlanOfAction());
+			goalsList.add(goalsGrid);
+		}
+		
+		newStudent.setGoalsGrid(goalsList);
 		
 		return studentRepository.save(newStudent);
 	}
 	
-	public Student updatechallenges(ChallengesRequest challengesRequest) {
-		Student newStudent = studentRepository.findById(challengesRequest.getStudentId()).get();
-		Challenges challenges  = new Challenges();
-		challenges.setChallengeId(challengesRequest.getChallengeId());
-		challenges.setChallenges(challengesRequest.getChallenges());
-		challenges.setDomain(challengesRequest.getDomain());
-		challenges.setSourceOfSupport(challengesRequest.getSourceOfSupport());
+	public Student updatechallenges(List<ChallengesRequest> challengesRequest) {
+		Student newStudent = studentRepository.findById(challengesRequest.get(0).getStudentId()).get();
+		List<Challenges> challengeList = new ArrayList<Challenges>();
 		
-		newStudent.setStudentId(challengesRequest.getStudentId());
-		newStudent.setChallenges(challenges);
+		for (int i= 0;i<challengesRequest.size();i++){
+			Challenges challenges  = new Challenges();
+			challenges.setChallenges(challengesRequest.get(i).getChallenges());
+			challenges.setDomain(challengesRequest.get(i).getDomain());
+			challenges.setSourceOfSupport(challengesRequest.get(i).getSourceOfSupport());
+			challengeList.add(challenges);
+		}
+		
+		newStudent.setChallenges(challengeList);
 		
 		return studentRepository.save(newStudent);
 	}
 
+	
+    public List<StudentResponse> getStudentByMentorId(String mentorId){
+    	List<Student> existingStudents = studentRepository.findAllByMentorId(mentorId);
+    	List<StudentResponse> studentResponse = convertToStudentResponse(existingStudents);
+    	return  studentResponse;
+ 
+    }
+	
+	public List<StudentResponse> convertToStudentResponse(List<Student> studentList){
+		List<StudentResponse> studentResponses = new ArrayList<StudentResponse>();
+		
+		studentResponses = studentList.stream().map(student -> {
+			StudentResponse studentResponse = new  StudentResponse();
+			studentResponse.setStudentId(student.getStudentId());
+			studentResponse.setStudentName(student.getStudentName());
+			studentResponse.setRegisterNumber(student.getRegisterNumber());
+			studentResponse.setGender(student.getGender());
+			studentResponse.setBranch(student.getBranch());
+			studentResponse.setSection(student.getSection());
+//			studentResponse.setMobileNumber(student.getMobileNumber());
+//			studentResponse.setFatherMobileNumber(student.getFatherMobileNumber());
+//			studentResponse.setMotherMobileNumber(student.getMotherMobileNumber());
+//			studentResponse.setReligion(student.getReligion());
+//			studentResponse.setCommunity(student.getCommunity());
+//			studentResponse.setBloodGroup(student.getBloodGroup());
+//			studentResponse.setStudentType(student.getStudentType());
+//			studentResponse.setAddressForCommunication(student.getAddressForCommunication());
+//			studentResponse.setPeriodOfStudy(student.getPeriodOfStudy());
+//			studentResponse.setPhoto(student.getPhoto());
+//			studentResponse.setRoomNumber(student.getRoomNumber());
+//			studentResponse.setBusRouteNumber(student.getBusRouteNumber());
+//			studentResponse.setEmailId(student.getEmailId());
+//			studentResponse.setLocalGuardian(student.getLocalGuardian());
+//			studentResponse.setFamilyProfile(student.getFamilyProfile());
+//			studentResponse.setSchoolRecord(student.getSchoolRecord());
+//			studentResponse.setHobbies(student.getHobbies());
+//			studentResponse.setStrenghAssessment(student.getStrenghAssessment());
+//			studentResponse.setGoalsGrid(student.getGoalsGrid());
+//			studentResponse.setChallenges(student.getChallenges());
+			return studentResponse;
+		}).collect(Collectors.toList());
+				
+				
+		return studentResponses;	
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,18 +1,18 @@
-package com.ssn.mentorapp.model;
-
-
-
+package com.ssn.mentorapp.payload.response;
 
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.ssn.mentorapp.model.Challenges;
+import com.ssn.mentorapp.model.FamilyProfile;
+import com.ssn.mentorapp.model.GoalsGrid;
+import com.ssn.mentorapp.model.Hobbies;
+import com.ssn.mentorapp.model.LocalGuardian;
+import com.ssn.mentorapp.model.SchoolRecord;
+import com.ssn.mentorapp.model.StrengthAssessment;
 
-@Document("student")
-public class Student {
+public class StudentResponse {
 	
-	@Id
 	private String studentId;
 	private String registerNumber;
 	private byte[] photo;
@@ -49,7 +49,7 @@ public class Student {
 	private List<Challenges> challenges;
 	
 	private StrengthAssessment strenghAssessment;
-	
+
 	public String getStudentId() {
 		return studentId;
 	}
@@ -58,21 +58,20 @@ public class Student {
 		this.studentId = studentId;
 	}
 
-	
-	public byte[] getPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(byte[] photo) {
-		this.photo = photo;
-	}
-
 	public String getRegisterNumber() {
 		return registerNumber;
 	}
 
 	public void setRegisterNumber(String registerNumber) {
 		this.registerNumber = registerNumber;
+	}
+
+	public byte[] getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
 	}
 
 	public String getStudentName() {
@@ -98,7 +97,6 @@ public class Student {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-
 
 	public Date getDob() {
 		return dob;
@@ -220,7 +218,6 @@ public class Student {
 		this.busRouteNumber = busRouteNumber;
 	}
 
-
 	public LocalGuardian getLocalGuardian() {
 		return localGuardian;
 	}
@@ -228,7 +225,6 @@ public class Student {
 	public void setLocalGuardian(LocalGuardian localGuardian) {
 		this.localGuardian = localGuardian;
 	}
-
 
 	public List<SchoolRecord> getSchoolRecord() {
 		return schoolRecord;
@@ -277,7 +273,6 @@ public class Student {
 	public void setStrenghAssessment(StrengthAssessment strenghAssessment) {
 		this.strenghAssessment = strenghAssessment;
 	}
-	
 	
 	
 

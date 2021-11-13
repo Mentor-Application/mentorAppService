@@ -3,7 +3,6 @@ package com.ssn.mentorapp.payload.request;
 public class ChallengesRequest {
 	
 	private String studentId;
-	private String challengeId;
 	private String domain;
 	private String challenges;
 	private String sourceOfSupport;
@@ -16,13 +15,6 @@ public class ChallengesRequest {
 		this.studentId = studentId;
 	}
 
-	public String getChallengeId() {
-		return challengeId;
-	}
-	
-	public void setChallengeId(String challengeId) {
-		this.challengeId = challengeId;
-	}
 	
 	public String getDomain() {
 		return domain;
