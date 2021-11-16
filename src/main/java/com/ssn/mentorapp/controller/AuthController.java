@@ -7,6 +7,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -81,7 +82,7 @@ public class AuthController {
 		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 		
-		return ResponseEntity.ok(new AuthenticationResponse(jwt,userDetails.getId(),userDetails.getUsername(),userDetails.getEmail(),roles));
+		return ResponseEntity.ok(new AuthenticationResponse(jwt,userDetails.getId(),userDetails.getUsername(),userDetails.getEmail(),roles,HttpStatus.OK));
 	}
 	
 	

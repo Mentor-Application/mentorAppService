@@ -2,6 +2,8 @@ package com.ssn.mentorapp.payload.response;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+
 public class AuthenticationResponse {
 	
 	private String token;
@@ -10,16 +12,17 @@ public class AuthenticationResponse {
 	private String userName;
 	private String email;
 	private List<String> roles;
+	private HttpStatus status;
 	
 	
-	
-	public AuthenticationResponse(String token, String id, String userName, String email, List<String> roles) {
+	public AuthenticationResponse(String token, String id, String userName, String email, List<String> roles,HttpStatus status) {
 		super();
 		this.token = token;
 		this.id = id;
 		this.userName = userName;
 		this.roles = roles;
 		this.email = email;
+		this.status = status;
 	}
 
 	public String getAccessToken() {
@@ -70,6 +73,14 @@ public class AuthenticationResponse {
 
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
+	}
+
+	public HttpStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(HttpStatus status) {
+		this.status = status;
 	}
 	
 	
