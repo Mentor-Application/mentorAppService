@@ -82,7 +82,7 @@ public class AuthController {
 		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 		
-		return ResponseEntity.ok(new AuthenticationResponse(jwt,userDetails.getId(),userDetails.getUsername(),userDetails.getEmail(),roles,HttpStatus.OK));
+		return ResponseEntity.ok(new AuthenticationResponse(jwt,userDetails.getId(),userDetails.getUsername(),userDetails.getEmail(),userDetails.getStudentId(),userDetails.getMentorId(),userDetails.getParentId(),userDetails.getFacultyId(),roles,HttpStatus.OK));
 	}
 	
 	
