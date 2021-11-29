@@ -76,11 +76,11 @@ public class Marks {
 		this.subjectName = subjectName;
 	}
 
-	public String getMark() {
+	public Long getMark() {
 		return mark;
 	}
 
-	public void setMark(String mark) {
+	public void setMark(Long mark) {
 		this.mark = mark;
 	}
 	

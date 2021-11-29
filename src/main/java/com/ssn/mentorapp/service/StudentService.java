@@ -7,6 +7,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import com.ssn.mentorapp.model.Challenges;
@@ -25,7 +30,9 @@ import com.ssn.mentorapp.payload.request.LocalGuardianRequest;
 import com.ssn.mentorapp.payload.request.SchoolRecordRequest;
 import com.ssn.mentorapp.payload.request.StrengthAssessmentRequest;
 import com.ssn.mentorapp.payload.request.StudentDetailsRequest;
+import com.ssn.mentorapp.payload.request.StudentSearchRequest;
 import com.ssn.mentorapp.payload.response.StudentResponse;
+import com.ssn.mentorapp.payload.response.StudentSearchResponse;
 import com.ssn.mentorapp.repository.StudentRepository;
 
 @Service
@@ -34,10 +41,12 @@ public class StudentService {
 	@Autowired
 	private StudentRepository studentRepository;
 	
+	@Autowired
+	private MongoTemplate mongoTemplate;
 	
 	public Student updateStudentProfile(StudentDetailsRequest studentDetailsRequest) throws ParseException {
 		Student newStudent = studentRepository.findByEmailId(studentDetailsRequest.getEmailId()).get();
-		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		newStudent.setStudentId(studentDetailsRequest.getStudentId());
 		newStudent.setStudentName(studentDetailsRequest.getStudentName());
 		newStudent.setRegisterNumber(studentDetailsRequest.getRegisterNumber());
@@ -182,7 +191,51 @@ public class StudentService {
     	return  studentResponse;
  
     }
+    
+    public List<StudentSearchResponse> searchStudent(StudentSearchRequest studentSearchRequest){
+//    	Query query = new Query();
+//    	Pageable pageable = PageRequest.of(0, 1);
+//    	query.with(pageable);
+//    	query.addCriteria( new Criteria().orOperator(
+//    			Criteria.where("section").is(studentSearchRequest.getSection()),
+//    			Criteria.where("studentName").regex("^"+studentSearchRequest.getStudentName()),
+//    			Criteria.where("registerNumber").is(studentSearchRequest.getRegisterNumber()),
+//    			Criteria.where("branch").is(studentSearchRequest.getBranch()),
+//    			Criteria.where("periodOfStudy").is(studentSearchRequest.getPeriodOfStudy())
+//    			
+//    			));
+//    	List<Student> students = mongoTemplate.find(query, Student.class);
+    	
+    	
+    	List<Student> students = studentRepository.findAllByStudentNameAndRegisterNumberAndBranchAndSectionAndPeriodOfStudy(
+    			studentSearchRequest.getStudentName(), 
+    			studentSearchRequest.getRegisterNumber(), 
+    			studentSearchRequest.getBranch(),
+    			studentSearchRequest.getSection(),
+    			studentSearchRequest.getPeriodOfStudy());
+    	
+    	List<StudentSearchResponse> studentResponses = convertToStudentSearchResponse(students);
+    	
+    	return studentResponses;
+    	
+    }
 	
+    public List<StudentSearchResponse> convertToStudentSearchResponse(List<Student> studentList){
+    	List<StudentSearchResponse> studentSearchResponses = new ArrayList<StudentSearchResponse>();
+    	
+    	studentSearchResponses = studentList.stream().map(st -> {
+    		StudentSearchResponse studentSearchResponse = new StudentSearchResponse();
+    		studentSearchResponse.setRegisterNumber(st.getRegisterNumber());
+    		studentSearchResponse.setBranch(st.getBranch());
+    		studentSearchResponse.setPeriodOfStudy(st.getPeriodOfStudy());
+    		studentSearchResponse.setSection(st.getSection());
+    		studentSearchResponse.setStudentName(st.getStudentName());
+    		return studentSearchResponse;
+    	}).collect(Collectors.toList());
+    	
+    	return studentSearchResponses;
+    }
+    
 	public List<StudentResponse> convertToStudentResponse(List<Student> studentList){
 		List<StudentResponse> studentResponses = new ArrayList<StudentResponse>();
 		

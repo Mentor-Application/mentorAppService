@@ -24,8 +24,10 @@ import com.ssn.mentorapp.payload.request.LocalGuardianRequest;
 import com.ssn.mentorapp.payload.request.SchoolRecordRequest;
 import com.ssn.mentorapp.payload.request.StrengthAssessmentRequest;
 import com.ssn.mentorapp.payload.request.StudentDetailsRequest;
+import com.ssn.mentorapp.payload.request.StudentSearchRequest;
 import com.ssn.mentorapp.payload.response.MessageResponse;
 import com.ssn.mentorapp.payload.response.StudentResponse;
+import com.ssn.mentorapp.payload.response.StudentSearchResponse;
 import com.ssn.mentorapp.repository.StudentRepository;
 import com.ssn.mentorapp.service.StudentService;
 
@@ -102,6 +104,11 @@ public class StudentController {
 		}
 	}
 	
+	@GetMapping("/search")
+	public ResponseEntity<?> searchStudent(@RequestBody StudentSearchRequest studentSearchRequest){
+		List<StudentSearchResponse> students = studentService.searchStudent(studentSearchRequest);
+		return ResponseEntity.ok(students); 
+	}
 	
 	@GetMapping("/mentor/{mentorId}")
 	public ResponseEntity<?> getStudentsByMentorId(@PathVariable("mentorId") String mentorId){
