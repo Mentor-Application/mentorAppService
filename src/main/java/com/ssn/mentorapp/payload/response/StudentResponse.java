@@ -34,6 +34,8 @@ public class StudentResponse {
 	private String emailId;
 	private Integer roomNumber;
 	private Integer busRouteNumber;
+	private String personalEmail;
+	
 	
 	
 	private LocalGuardian localGuardian;
@@ -49,6 +51,16 @@ public class StudentResponse {
 	private List<Challenges> challenges;
 	
 	private StrengthAssessment strenghAssessment;
+	
+	
+
+	public String getPersonalEmail() {
+		return personalEmail;
+	}
+
+	public void setPersonalEmail(String personalEmail) {
+		this.personalEmail = personalEmail;
+	}
 
 	public String getStudentId() {
 		return studentId;

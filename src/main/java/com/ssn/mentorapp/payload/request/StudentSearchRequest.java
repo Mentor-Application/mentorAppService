@@ -10,17 +10,8 @@ public class StudentSearchRequest {
 	
 	private String section;
 	
-	private String registerNumber;
-	
 	
 
-	public String getRegisterNumber() {
-		return registerNumber;
-	}
-
-	public void setRegisterNumber(String registerNumber) {
-		this.registerNumber = registerNumber;
-	}
 
 	public String getStudentName() {
 		return studentName;

@@ -25,8 +25,17 @@ public class StudentDetailsRequest {
 	private String emailId;
 	private Integer roomNumber;
 	private Integer busRouteNumber;
+	private String personalEmail;
 	
 	
+	
+	
+	public String getPersonalEmail() {
+		return personalEmail;
+	}
+	public void setPersonalEmail(String personalEmail) {
+		this.personalEmail = personalEmail;
+	}
 	public Integer getRoomNumber() {
 		return roomNumber;
 	}

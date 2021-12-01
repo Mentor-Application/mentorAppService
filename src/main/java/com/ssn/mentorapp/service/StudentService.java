@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -47,7 +48,6 @@ public class StudentService {
 	public Student updateStudentProfile(StudentDetailsRequest studentDetailsRequest) throws ParseException {
 		Student newStudent = studentRepository.findByEmailId(studentDetailsRequest.getEmailId()).get();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		newStudent.setStudentId(studentDetailsRequest.getStudentId());
 		newStudent.setStudentName(studentDetailsRequest.getStudentName());
 		newStudent.setRegisterNumber(studentDetailsRequest.getRegisterNumber());
 		newStudent.setGender(studentDetailsRequest.getGender());
@@ -66,7 +66,7 @@ public class StudentService {
 		newStudent.setPhoto(studentDetailsRequest.getPhoto());
 		newStudent.setRoomNumber(studentDetailsRequest.getRoomNumber());
 		newStudent.setBusRouteNumber(studentDetailsRequest.getBusRouteNumber());
-		newStudent.setEmailId(studentDetailsRequest.getEmailId());	
+		newStudent.setPersonalEmail(studentDetailsRequest.getPersonalEmail());	
 		return studentRepository.save(newStudent);
 	}
 	
@@ -192,29 +192,16 @@ public class StudentService {
  
     }
     
-    public List<StudentSearchResponse> searchStudent(StudentSearchRequest studentSearchRequest){
-//    	Query query = new Query();
-//    	Pageable pageable = PageRequest.of(0, 1);
-//    	query.with(pageable);
-//    	query.addCriteria( new Criteria().orOperator(
-//    			Criteria.where("section").is(studentSearchRequest.getSection()),
-//    			Criteria.where("studentName").regex("^"+studentSearchRequest.getStudentName()),
-//    			Criteria.where("registerNumber").is(studentSearchRequest.getRegisterNumber()),
-//    			Criteria.where("branch").is(studentSearchRequest.getBranch()),
-//    			Criteria.where("periodOfStudy").is(studentSearchRequest.getPeriodOfStudy())
-//    			
-//    			));
-//    	List<Student> students = mongoTemplate.find(query, Student.class);
-    	
-    	
-    	List<Student> students = studentRepository.findAllByStudentNameAndRegisterNumberAndBranchAndSectionAndPeriodOfStudy(
+    public List<StudentSearchResponse> searchStudent(StudentSearchRequest studentSearchRequest,int from, int size){
+    	    	
+    	Page<Student> students = studentRepository.findAllByStudentNameAndBranchAndSectionAndPeriodOfStudy(
+    			PageRequest.of(from, size),
     			studentSearchRequest.getStudentName(), 
-    			studentSearchRequest.getRegisterNumber(), 
     			studentSearchRequest.getBranch(),
     			studentSearchRequest.getSection(),
     			studentSearchRequest.getPeriodOfStudy());
     	
-    	List<StudentSearchResponse> studentResponses = convertToStudentSearchResponse(students);
+    	List<StudentSearchResponse> studentResponses = convertToStudentSearchResponse(students.toList());
     	
     	return studentResponses;
     	

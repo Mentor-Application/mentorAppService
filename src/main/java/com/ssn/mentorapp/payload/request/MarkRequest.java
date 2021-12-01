@@ -1,12 +1,8 @@
-package com.ssn.mentorapp.model;
+package com.ssn.mentorapp.payload.request;
 
-import org.springframework.data.annotation.Id;
-
-public class Marks {
-	@Id
-	private String markId;
+public class MarkRequest {
 	
-	
+    private String markId;
 	
 	private String examType;
 	
@@ -28,7 +24,6 @@ public class Marks {
 		this.markId = markId;
 	}
 
-	
 
 	public String getExamType() {
 		return examType;
@@ -79,5 +74,5 @@ public class Marks {
 	}
 	
 	
-	
+
 }

@@ -17,6 +17,7 @@ public class Student {
 	private String registerNumber;
 	private byte[] photo;
 	private String studentName;
+	private String personalEmail;
 	private String mentorId;
 	private String gender;
 	private Date dob;
@@ -50,6 +51,17 @@ public class Student {
 	
 	private StrengthAssessment strenghAssessment;
 	
+	
+	
+	
+	public String getPersonalEmail() {
+		return personalEmail;
+	}
+
+	public void setPersonalEmail(String personalEmail) {
+		this.personalEmail = personalEmail;
+	}
+
 	public String getStudentId() {
 		return studentId;
 	}

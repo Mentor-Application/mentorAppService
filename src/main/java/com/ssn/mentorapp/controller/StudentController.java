@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -106,7 +107,7 @@ public class StudentController {
 	
 	@GetMapping("/search")
 	public ResponseEntity<?> searchStudent(@RequestBody StudentSearchRequest studentSearchRequest){
-		List<StudentSearchResponse> students = studentService.searchStudent(studentSearchRequest);
+		List<StudentSearchResponse> students = studentService.searchStudent(studentSearchRequest,0,10);
 		return ResponseEntity.ok(students); 
 	}
 	

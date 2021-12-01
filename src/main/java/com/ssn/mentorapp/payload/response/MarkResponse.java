@@ -1,24 +1,20 @@
-package com.ssn.mentorapp.model;
+package com.ssn.mentorapp.payload.response;
 
-import org.springframework.data.annotation.Id;
+public class MarkResponse {
 
-public class Marks {
-	@Id
 	private String markId;
-	
-	
-	
+
 	private String examType;
-	
+
 	private String semesterName;
-	
+
 	private String studentId;
-	
+
 	private String subjectCode;
-	
+
 	private String subjectName;
-	
-	private Long  mark;
+
+	private Long mark;
 
 	public String getMarkId() {
 		return markId;
@@ -27,8 +23,6 @@ public class Marks {
 	public void setMarkId(String markId) {
 		this.markId = markId;
 	}
-
-	
 
 	public String getExamType() {
 		return examType;
@@ -77,7 +71,5 @@ public class Marks {
 	public void setMark(Long mark) {
 		this.mark = mark;
 	}
-	
-	
-	
+
 }
