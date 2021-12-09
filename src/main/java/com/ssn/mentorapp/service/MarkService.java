@@ -2,6 +2,7 @@ package com.ssn.mentorapp.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,23 +20,27 @@ public class MarkService {
 	private MarkRepository markRepository;
 
 	public Marks updateMark(MarkRequest markRequest) {
-		Marks mark = markRepository
-				.findBySemesterNameAndStudentIdAndSubjectCodeAndExamType(markRequest.getSemesterName(),
-						markRequest.getStudentId(), markRequest.getSubjectCode(), markRequest.getExamType())
-				.get();
+		
+		Optional<Marks> mark = markRepository
+				.findBySemesterNameAndStudentIdAndSubjectCode(markRequest.getSemesterName(),
+						markRequest.getStudentId(), markRequest.getSubjectCode());
 
-		if (mark != null) {
-			mark.setExamType(markRequest.getExamType());
-			mark.setMark(markRequest.getMark());
-			mark.setSemesterName(markRequest.getSemesterName());
-			mark.setStudentId(markRequest.getStudentId());
-			mark.setSubjectCode(markRequest.getSubjectCode());
-			mark.setSubjectName(markRequest.getSubjectName());
-			return markRepository.save(mark);
+		if (!mark.isEmpty()) {
+			mark.get().setFirstCatMark(markRequest.getFirstCatMark());
+			mark.get().setSecondCatMark(markRequest.getSecondCatMark());
+			mark.get().setThirdCatMark(markRequest.getThirdCatMark());
+			mark.get().setInternalMark(markRequest.getInternalMark());
+			mark.get().setSemesterName(markRequest.getSemesterName());
+			mark.get().setStudentId(markRequest.getStudentId());
+			mark.get().setSubjectCode(markRequest.getSubjectCode());
+			mark.get().setSubjectName(markRequest.getSubjectName());
+			return markRepository.save(mark.get());
 		} else {
 			Marks newMark = new Marks();
-			newMark.setExamType(markRequest.getExamType());
-			newMark.setMark(markRequest.getMark());
+			newMark.setFirstCatMark(markRequest.getFirstCatMark());
+			newMark.setSecondCatMark(markRequest.getSecondCatMark());
+			newMark.setThirdCatMark(markRequest.getThirdCatMark());
+			newMark.setInternalMark(markRequest.getInternalMark());
 			newMark.setSemesterName(markRequest.getSemesterName());
 			newMark.setStudentId(markRequest.getStudentId());
 			newMark.setSubjectCode(markRequest.getSubjectCode());
@@ -44,13 +49,9 @@ public class MarkService {
 		}
 	}
 
-	public List<MarkResponse> getMarks(List<MarkRequest> markRequests) {
-		List<Marks> marks = new ArrayList<Marks>();
-		for (int i = 0; i < markRequests.size(); i++) {
-			marks.add(markRepository.findBySemesterNameAndStudentIdAndSubjectCodeAndExamType(
-					markRequests.get(i).getSemesterName(), markRequests.get(i).getStudentId(),
-					markRequests.get(i).getSubjectCode(), markRequests.get(i).getExamType()).get());
-		}
+	public List<MarkResponse> getMarks(MarkRequest markRequests) {
+		List<Marks> marks = markRepository.findAllByStudentIdAndSemesterName(markRequests.getStudentId(), markRequests.getSemesterName());
+		
 		return convertToMarkResponse(marks);
 	}
 
@@ -59,7 +60,10 @@ public class MarkService {
 		markResponses = marks.stream().map(m -> {
 			MarkResponse markResponse = new MarkResponse();
 			markResponse.setMarkId(m.getMarkId());
-			markResponse.setMark(m.getMark());
+			markResponse.setFirstCatMark(m.getFirstCatMark());
+			markResponse.setSecondCatMark(m.getSecondCatMark());
+			markResponse.setThirdCatMark(m.getThirdCatMark());
+			markResponse.setInternalMark(m.getInternalMark());
 			markResponse.setStudentId(m.getStudentId());
 			markResponse.setSemesterName(m.getSemesterName());
 			markResponse.setSubjectCode(m.getSubjectCode());

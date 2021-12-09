@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,7 +38,7 @@ public class MarkController {
 	
 	
 	@GetMapping("/list")
-	public ResponseEntity<?> getMarks(@RequestBody List<MarkRequest> markRequests){
+	public ResponseEntity<?> getMarks(@RequestParam MarkRequest markRequests){
 		List<MarkResponse> marks = markService.getMarks(markRequests);
 		return ResponseEntity.ok(marks);
 	}

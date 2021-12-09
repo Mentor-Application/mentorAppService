@@ -3,9 +3,7 @@ package com.ssn.mentorapp.payload.request;
 public class MarkRequest {
 	
     private String markId;
-	
-	private String examType;
-	
+		
 	private String semesterName;
 	
 	private String studentId;
@@ -14,7 +12,13 @@ public class MarkRequest {
 	
 	private String subjectName;
 	
-	private Long  mark;
+	private Long  firstCatMark;
+	
+	private Long secondCatMark;
+	
+	private Long thirdCatMark;
+	
+	private Long internalMark;
 
 	public String getMarkId() {
 		return markId;
@@ -25,13 +29,7 @@ public class MarkRequest {
 	}
 
 
-	public String getExamType() {
-		return examType;
-	}
-
-	public void setExamType(String examType) {
-		this.examType = examType;
-	}
+	
 
 	public String getSemesterName() {
 		return semesterName;
@@ -65,13 +63,39 @@ public class MarkRequest {
 		this.subjectName = subjectName;
 	}
 
-	public Long getMark() {
-		return mark;
+	public Long getFirstCatMark() {
+		return firstCatMark;
 	}
 
-	public void setMark(Long mark) {
-		this.mark = mark;
+	public void setFirstCatMark(Long firstCatMark) {
+		this.firstCatMark = firstCatMark;
 	}
+
+	public Long getSecondCatMark() {
+		return secondCatMark;
+	}
+
+	public void setSecondCatMark(Long secondCatMark) {
+		this.secondCatMark = secondCatMark;
+	}
+
+	public Long getThirdCatMark() {
+		return thirdCatMark;
+	}
+
+	public void setThirdCatMark(Long thirdCatMark) {
+		this.thirdCatMark = thirdCatMark;
+	}
+
+	public Long getInternalMark() {
+		return internalMark;
+	}
+
+	public void setInternalMark(Long internalMark) {
+		this.internalMark = internalMark;
+	}
+
+	
 	
 	
 

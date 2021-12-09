@@ -106,7 +106,7 @@ public class StudentController {
 	}
 	
 	@GetMapping("/search")
-	public ResponseEntity<?> searchStudent(@RequestBody StudentSearchRequest studentSearchRequest){
+	public ResponseEntity<?> searchStudent(@RequestParam StudentSearchRequest studentSearchRequest){
 		List<StudentSearchResponse> students = studentService.searchStudent(studentSearchRequest,0,10);
 		return ResponseEntity.ok(students); 
 	}
