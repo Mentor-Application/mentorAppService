@@ -94,19 +94,27 @@ public class StudentController {
 		return ResponseEntity.ok(newStudent);
 	}
 	
-	@GetMapping("/{studentId}")
-	public ResponseEntity<?> getStudentById(@PathVariable("studentId") String studentId ){
-		Student existingStudent = studentRepository.findById(studentId).get();
-		if(existingStudent != null) {
-			return ResponseEntity.ok(existingStudent);
-		}
-		else {
-			return ResponseEntity.badRequest().body(new MessageResponse("student not found"));
-		}
-	}
+//	@GetMapping("/{studentId}")
+//	public ResponseEntity<?> getStudentById(@PathVariable("studentId") String studentId ){
+//		Student existingStudent = studentRepository.findById(studentId).get();
+//		if(existingStudent != null) {
+//			return ResponseEntity.ok(existingStudent);
+//		}
+//		else {
+//			return ResponseEntity.badRequest().body(new MessageResponse("student not found"));
+//		}
+//	}
 	
 	@GetMapping("/search")
-	public ResponseEntity<?> searchStudent(@RequestParam StudentSearchRequest studentSearchRequest){
+	public ResponseEntity<?> searchStudent(@RequestParam String periodOfStudy,
+											@RequestParam String studentName,
+											@RequestParam String branch,
+											@RequestParam String section){
+		StudentSearchRequest studentSearchRequest = new StudentSearchRequest();
+		studentSearchRequest.setBranch(branch);
+		studentSearchRequest.setPeriodOfStudy(periodOfStudy);
+		studentSearchRequest.setSection(section);
+		studentSearchRequest.setStudentName(studentName);
 		List<StudentSearchResponse> students = studentService.searchStudent(studentSearchRequest,0,10);
 		return ResponseEntity.ok(students); 
 	}
