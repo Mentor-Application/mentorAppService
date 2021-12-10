@@ -9,10 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
+
 import org.springframework.stereotype.Service;
 
 import com.ssn.mentorapp.model.Challenges;
@@ -42,8 +39,7 @@ public class StudentService {
 	@Autowired
 	private StudentRepository studentRepository;
 	
-	@Autowired
-	private MongoTemplate mongoTemplate;
+	
 	
 	public Student updateStudentProfile(StudentDetailsRequest studentDetailsRequest) throws ParseException {
 		Student newStudent = studentRepository.findByEmailId(studentDetailsRequest.getEmailId()).get();
@@ -222,6 +218,11 @@ public class StudentService {
     	
     	return studentSearchResponses;
     }
+    
+    
+    
+   
+    
     
 	public List<StudentResponse> convertToStudentResponse(List<Student> studentList){
 		List<StudentResponse> studentResponses = new ArrayList<StudentResponse>();

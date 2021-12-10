@@ -49,8 +49,8 @@ public class MarkService {
 		}
 	}
 
-	public List<MarkResponse> getMarks(MarkRequest markRequests) {
-		List<Marks> marks = markRepository.findAllByStudentIdAndSemesterName(markRequests.getStudentId(), markRequests.getSemesterName());
+	public List<MarkResponse> getMarks(String studentId,String semesterName) {
+		List<Marks> marks = markRepository.findAllByStudentIdAndSemesterName(studentId,semesterName);
 		
 		return convertToMarkResponse(marks);
 	}

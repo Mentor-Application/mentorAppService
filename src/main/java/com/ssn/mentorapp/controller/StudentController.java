@@ -58,10 +58,32 @@ public class StudentController {
 		return ResponseEntity.ok(newStudent);
 	}
 	
+	@GetMapping("/list/guardian/{studentId}")
+	public ResponseEntity<?> getLoacalGuardian(@PathVariable("studentId")String studentId){
+		Student existingStudent = studentRepository.findById(studentId).get();
+		if(existingStudent != null) {
+			return ResponseEntity.ok(existingStudent.getLocalGuardian());
+		}
+		else {
+			return ResponseEntity.badRequest().body(new MessageResponse("student not found"));
+		}
+	}
+	
 	@PostMapping("/schoolrecord")
 	public ResponseEntity<?> setSchoolRecord(@RequestBody List<SchoolRecordRequest> schoolRecordRequest){
 		Student newStudent = studentService.updateschoolRecordDetails(schoolRecordRequest);
 		return ResponseEntity.ok(newStudent);
+	}
+	
+	@GetMapping("/list/schoolrecord/{studentId}")
+	public ResponseEntity<?> getSchoolRecord(@PathVariable("studentId") String studentId){
+		Student existingStudent = studentRepository.findById(studentId).get();
+		if(existingStudent != null) {
+			return ResponseEntity.ok(existingStudent.getSchoolRecord());
+		}
+		else {
+			return ResponseEntity.badRequest().body(new MessageResponse("student not found"));
+		}
 	}
 	
 	@PostMapping("/familyprofile")
@@ -70,10 +92,32 @@ public class StudentController {
 		return ResponseEntity.ok(newStudent);
 	}
 	
+	@GetMapping("/list/familyProfile/{studentId}")
+	public ResponseEntity<?> getFamilyProfile(@PathVariable("studentId") String studentId){
+		Student existingStudent = studentRepository.findById(studentId).get();
+		if(existingStudent != null) {
+			return ResponseEntity.ok(existingStudent.getFamilyProfile());
+		}
+		else {
+			return ResponseEntity.badRequest().body(new MessageResponse("student not found"));
+		}
+	}
+	
 	@PostMapping("/hobbies")
 	public ResponseEntity<?> setHobbies(@RequestBody List<HobbiesRequest> hobbiesRequest){
 		Student newStudent = studentService.updatehobbies(hobbiesRequest);
 		return ResponseEntity.ok(newStudent);
+	}
+	
+	@GetMapping("/list/hobbies/{studentId}")
+	public ResponseEntity<?> getHobbies(@PathVariable("studentId") String studentId){
+		Student existingStudent = studentRepository.findById(studentId).get();
+		if(existingStudent != null) {
+			return ResponseEntity.ok(existingStudent.getHobbies());
+		}
+		else {
+			return ResponseEntity.badRequest().body(new MessageResponse("student not found"));
+		}
 	}
 	
 	@PostMapping("/strengthassessment")
@@ -82,10 +126,32 @@ public class StudentController {
 		return ResponseEntity.ok(newStudent);
 	}
 	
+	@GetMapping("/list/strengthassessment/{studentId}")
+	public ResponseEntity<?> getStrengthAssessment(@PathVariable("studentId") String studentId){
+		Student existingStudent = studentRepository.findById(studentId).get();
+		if(existingStudent != null) {
+			return ResponseEntity.ok(existingStudent.getStrenghAssessment());
+		}
+		else {
+			return ResponseEntity.badRequest().body(new MessageResponse("student not found"));
+		}
+	}
+	
 	@PostMapping("/goalsgrid")
 	public ResponseEntity<?> setGoalsGrid(@RequestBody List<GoalsGridRequest> goalsGridRequest){
 		Student newStudent = studentService.updategoalsGrid(goalsGridRequest);
 		return ResponseEntity.ok(newStudent);
+	}
+	
+	@GetMapping("/list/goalsgrid/{studentId}")
+	public ResponseEntity<?> getGoalsGrid(@PathVariable("studentId") String studentId){
+		Student existingStudent = studentRepository.findById(studentId).get();
+		if(existingStudent != null) {
+			return ResponseEntity.ok(existingStudent.getGoalsGrid());
+		}
+		else {
+			return ResponseEntity.badRequest().body(new MessageResponse("student not found"));
+		}
 	}
 	
 	@PostMapping("/challenges")
@@ -94,16 +160,28 @@ public class StudentController {
 		return ResponseEntity.ok(newStudent);
 	}
 	
-//	@GetMapping("/{studentId}")
-//	public ResponseEntity<?> getStudentById(@PathVariable("studentId") String studentId ){
-//		Student existingStudent = studentRepository.findById(studentId).get();
-//		if(existingStudent != null) {
-//			return ResponseEntity.ok(existingStudent);
-//		}
-//		else {
-//			return ResponseEntity.badRequest().body(new MessageResponse("student not found"));
-//		}
-//	}
+	
+	@GetMapping("/list/challenges/{studentId}")
+	public ResponseEntity<?> getChallenges(@PathVariable("studentId") String studentId){
+		Student existingStudent = studentRepository.findById(studentId).get();
+		if(existingStudent != null) {
+			return ResponseEntity.ok(existingStudent.getChallenges());
+		}
+		else {
+			return ResponseEntity.badRequest().body(new MessageResponse("student not found"));
+		}
+	}
+	
+	@GetMapping("/{studentId}/profile")
+	public ResponseEntity<?> getStudentById(@PathVariable("studentId") String studentId ){
+		Student existingStudent = studentRepository.findById(studentId).get();
+		if(existingStudent != null) {
+			return ResponseEntity.ok(existingStudent);
+		}
+		else {
+			return ResponseEntity.badRequest().body(new MessageResponse("student not found"));
+		}
+	}
 	
 	@GetMapping("/search")
 	public ResponseEntity<?> searchStudent(@RequestParam String periodOfStudy,

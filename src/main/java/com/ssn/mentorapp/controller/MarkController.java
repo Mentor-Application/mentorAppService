@@ -38,8 +38,8 @@ public class MarkController {
 	
 	
 	@GetMapping("/list")
-	public ResponseEntity<?> getMarks(@RequestParam MarkRequest markRequests){
-		List<MarkResponse> marks = markService.getMarks(markRequests);
+	public ResponseEntity<?> getMarks(@RequestParam String studentId,@RequestParam String semesterName){
+		List<MarkResponse> marks = markService.getMarks(studentId,semesterName);
 		return ResponseEntity.ok(marks);
 	}
 
