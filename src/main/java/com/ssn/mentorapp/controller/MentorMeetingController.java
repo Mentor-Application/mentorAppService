@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,8 +36,8 @@ public class MentorMeetingController {
 		return ResponseEntity.ok(meeting);
 	}
 	
-	@GetMapping("/list")
-	public ResponseEntity<?> getMeetingDetails(@RequestParam String studentId,@RequestParam String semesterName){
+	@GetMapping("/{studentId}/{semesterName}/list")
+	public ResponseEntity<?> getMeetingDetails(@PathVariable("studentId") String studentId,@PathVariable("semesterName") String semesterName){
 		List<MentorMeeting> meetingList = mentorMeetingService.getMeetingDetails(studentId, semesterName);
 		return ResponseEntity.ok(meetingList);
 	}

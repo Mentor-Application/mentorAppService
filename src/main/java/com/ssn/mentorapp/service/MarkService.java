@@ -34,6 +34,7 @@ public class MarkService {
 			mark.get().setStudentId(markRequest.getStudentId());
 			mark.get().setSubjectCode(markRequest.getSubjectCode());
 			mark.get().setSubjectName(markRequest.getSubjectName());
+			mark.get().setAttendance(markRequest.getAttendance());
 			return markRepository.save(mark.get());
 		} else {
 			Marks newMark = new Marks();
@@ -45,6 +46,7 @@ public class MarkService {
 			newMark.setStudentId(markRequest.getStudentId());
 			newMark.setSubjectCode(markRequest.getSubjectCode());
 			newMark.setSubjectName(markRequest.getSubjectName());
+			newMark.setAttendance(markRequest.getAttendance());
 			return markRepository.save(newMark);
 		}
 	}
@@ -68,6 +70,7 @@ public class MarkService {
 			markResponse.setSemesterName(m.getSemesterName());
 			markResponse.setSubjectCode(m.getSubjectCode());
 			markResponse.setSubjectName(m.getSubjectName());
+			markResponse.setAttendance(m.getAttendance());
 			return markResponse;
 		}).collect(Collectors.toList());
 

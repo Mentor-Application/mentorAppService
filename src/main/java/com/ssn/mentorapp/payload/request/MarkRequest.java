@@ -19,6 +19,8 @@ public class MarkRequest {
 	private Long thirdCatMark;
 	
 	private Long internalMark;
+	
+	private Long attendance;
 
 	public String getMarkId() {
 		return markId;
@@ -30,6 +32,14 @@ public class MarkRequest {
 
 
 	
+
+	public Long getAttendance() {
+		return attendance;
+	}
+
+	public void setAttendance(Long attendance) {
+		this.attendance = attendance;
+	}
 
 	public String getSemesterName() {
 		return semesterName;

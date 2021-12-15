@@ -23,7 +23,7 @@ private String endsemId;
 	
 	private String totalGradePoints;
 	
-	private Float gpa;
+	private String gpa;
 	
 
 	public String getEndsemId() {
@@ -107,11 +107,11 @@ private String endsemId;
 		this.totalGradePoints = totalGradePoints;
 	}
 
-	public Float getGpa() {
+	public String getGpa() {
 		return gpa;
 	}
 
-	public void setGpa(Float gpa) {
+	public void setGpa(String gpa) {
 		this.gpa = gpa;
 	}
 	

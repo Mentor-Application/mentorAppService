@@ -27,7 +27,7 @@ public class Endsemester {
 	
 	private String totalGradePoints;
 	
-	private Float gpa;
+	private String gpa;
 
 	
 	public String getCredits() {
@@ -46,11 +46,11 @@ public class Endsemester {
 		this.totalGradePoints = totalGradePoints;
 	}
 
-	public Float getGpa() {
+	public String getGpa() {
 		return gpa;
 	}
 
-	public void setGpa(Float gpa) {
+	public void setGpa(String gpa) {
 		this.gpa = gpa;
 	}
 
