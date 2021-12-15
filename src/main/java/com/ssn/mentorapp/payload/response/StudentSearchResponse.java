@@ -1,7 +1,9 @@
 package com.ssn.mentorapp.payload.response;
 
 public class StudentSearchResponse {
-
+	
+	private String studentId;
+	
 	private String registerNumber;
 
 	private String studentName;
@@ -11,7 +13,17 @@ public class StudentSearchResponse {
 	private String periodOfStudy;
 
 	private String section;
+	
+	
+	public String getStudentId() {
+		return studentId;
+	}
 
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
+	}
+
+	
 	public String getRegisterNumber() {
 		return registerNumber;
 	}

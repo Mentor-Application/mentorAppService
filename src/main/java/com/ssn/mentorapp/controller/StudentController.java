@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.ssn.mentorapp.model.Parent;
 import com.ssn.mentorapp.model.Student;
 import com.ssn.mentorapp.payload.request.ChallengesRequest;
 import com.ssn.mentorapp.payload.request.FamilyProfileRequest;
 import com.ssn.mentorapp.payload.request.GoalsGridRequest;
 import com.ssn.mentorapp.payload.request.HobbiesRequest;
 import com.ssn.mentorapp.payload.request.LocalGuardianRequest;
-
+import com.ssn.mentorapp.payload.request.ParentDetailRequest;
 import com.ssn.mentorapp.payload.request.SchoolRecordRequest;
 import com.ssn.mentorapp.payload.request.StrengthAssessmentRequest;
 import com.ssn.mentorapp.payload.request.StudentDetailsRequest;
@@ -30,6 +30,7 @@ import com.ssn.mentorapp.payload.response.MessageResponse;
 import com.ssn.mentorapp.payload.response.StudentResponse;
 import com.ssn.mentorapp.payload.response.StudentSearchResponse;
 import com.ssn.mentorapp.repository.StudentRepository;
+import com.ssn.mentorapp.service.ParentService;
 import com.ssn.mentorapp.service.StudentService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -42,6 +43,7 @@ public class StudentController {
 	@Autowired
 	private StudentService studentService;
 	
+	
 	@Autowired
 	private StudentRepository studentRepository;
 	
@@ -51,6 +53,12 @@ public class StudentController {
 		return ResponseEntity.ok(newStudent);
 	}
 	
+//	@PostMapping("/parent")
+//	public ResponseEntity<?> setParent(@RequestBody ParentDetailRequest parentDetailRequest){
+//		Student newStudent = studentService.updateParentProfile(parentDetailRequest);
+//		return ResponseEntity.ok(newStudent);
+//	}
+
 	
 	@PostMapping("/guardian")
 	public ResponseEntity<?> setLocalGuardian(@RequestBody LocalGuardianRequest localGuardianRequest){
@@ -69,11 +77,6 @@ public class StudentController {
 		}
 	}
 	
-	@PostMapping("/schoolrecord")
-	public ResponseEntity<?> setSchoolRecord(@RequestBody List<SchoolRecordRequest> schoolRecordRequest){
-		Student newStudent = studentService.updateschoolRecordDetails(schoolRecordRequest);
-		return ResponseEntity.ok(newStudent);
-	}
 	
 	@GetMapping("/list/schoolrecord/{studentId}")
 	public ResponseEntity<?> getSchoolRecord(@PathVariable("studentId") String studentId){
@@ -86,11 +89,6 @@ public class StudentController {
 		}
 	}
 	
-	@PostMapping("/familyprofile")
-	public ResponseEntity<?> setFamilyProfile(@RequestBody List<FamilyProfileRequest> familyProfileRequest){
-		Student newStudent = studentService.updatefamilyProfileDetails(familyProfileRequest);
-		return ResponseEntity.ok(newStudent);
-	}
 	
 	@GetMapping("/list/familyProfile/{studentId}")
 	public ResponseEntity<?> getFamilyProfile(@PathVariable("studentId") String studentId){
@@ -103,11 +101,6 @@ public class StudentController {
 		}
 	}
 	
-	@PostMapping("/hobbies")
-	public ResponseEntity<?> setHobbies(@RequestBody List<HobbiesRequest> hobbiesRequest){
-		Student newStudent = studentService.updatehobbies(hobbiesRequest);
-		return ResponseEntity.ok(newStudent);
-	}
 	
 	@GetMapping("/list/hobbies/{studentId}")
 	public ResponseEntity<?> getHobbies(@PathVariable("studentId") String studentId){
@@ -120,11 +113,6 @@ public class StudentController {
 		}
 	}
 	
-	@PostMapping("/strengthassessment")
-	public ResponseEntity<?> setStrengthAssessment(@RequestBody StrengthAssessmentRequest strengthAssessmentRequest){
-		Student newStudent = studentService.updatestrengthAssessment(strengthAssessmentRequest);
-		return ResponseEntity.ok(newStudent);
-	}
 	
 	@GetMapping("/list/strengthassessment/{studentId}")
 	public ResponseEntity<?> getStrengthAssessment(@PathVariable("studentId") String studentId){
@@ -137,11 +125,6 @@ public class StudentController {
 		}
 	}
 	
-	@PostMapping("/goalsgrid")
-	public ResponseEntity<?> setGoalsGrid(@RequestBody List<GoalsGridRequest> goalsGridRequest){
-		Student newStudent = studentService.updategoalsGrid(goalsGridRequest);
-		return ResponseEntity.ok(newStudent);
-	}
 	
 	@GetMapping("/list/goalsgrid/{studentId}")
 	public ResponseEntity<?> getGoalsGrid(@PathVariable("studentId") String studentId){
@@ -154,9 +137,39 @@ public class StudentController {
 		}
 	}
 	
-	@PostMapping("/challenges")
-	public ResponseEntity<?> setChallenges(@RequestBody List<ChallengesRequest> challengesRequest){
-		Student newStudent = studentService.updatechallenges(challengesRequest);
+	@PostMapping("/{studentId}/schoolrecord")
+	public ResponseEntity<?> setSchoolRecord(@RequestBody List<SchoolRecordRequest> schoolRecordRequest,@PathVariable("studentId") String studentId){
+		Student newStudent = studentService.updateschoolRecordDetails(schoolRecordRequest,studentId);
+		return ResponseEntity.ok(newStudent);
+	}
+	
+	@PostMapping("/{studentId}/familyprofile")
+	public ResponseEntity<?> setFamilyProfile(@RequestBody List<FamilyProfileRequest> familyProfileRequest,@PathVariable("studentId") String studentId){
+		Student newStudent = studentService.updatefamilyProfileDetails(familyProfileRequest,studentId);
+		return ResponseEntity.ok(newStudent);
+	}
+	
+	@PostMapping("/{studentId}/hobbies")
+	public ResponseEntity<?> setHobbies(@RequestBody List<HobbiesRequest> hobbiesRequest,@PathVariable("studentId") String studentId){
+		Student newStudent = studentService.updatehobbies(hobbiesRequest,studentId);
+		return ResponseEntity.ok(newStudent);
+	}
+	
+	@PostMapping("/{studentId}/strengthassessment")
+	public ResponseEntity<?> setStrengthAssessment(@RequestBody StrengthAssessmentRequest strengthAssessmentRequest,@PathVariable("studentId") String studentId){
+		Student newStudent = studentService.updatestrengthAssessment(strengthAssessmentRequest,studentId);
+		return ResponseEntity.ok(newStudent);
+	}
+	
+	@PostMapping("/{studentId}/goalsgrid")
+	public ResponseEntity<?> setGoalsGrid(@RequestBody List<GoalsGridRequest> goalsGridRequest,@PathVariable("studentId") String studentId){
+		Student newStudent = studentService.updategoalsGrid(goalsGridRequest,studentId);
+		return ResponseEntity.ok(newStudent);
+	}
+	
+	@PostMapping("/{studentId}/challenges")
+	public ResponseEntity<?> setChallenges(@RequestBody List<ChallengesRequest> challengesRequest,@PathVariable("studentId") String studentId){
+		Student newStudent = studentService.updatechallenges(challengesRequest,studentId);
 		return ResponseEntity.ok(newStudent);
 	}
 	
@@ -207,4 +220,13 @@ public class StudentController {
 			return ResponseEntity.badRequest().body(new MessageResponse("students not found"));
 		}
 	}
+	
+	@PostMapping("/mentor/{mentorId}/addmentee")
+	public ResponseEntity<?> setMentorIdforStudents(@RequestBody List<StudentSearchRequest> studentSearchRequest,@PathVariable ("mentorId") String mentorId ){
+		
+		studentService.setMentorIdforStudents(studentSearchRequest, mentorId);
+		
+		return ResponseEntity.ok(null);
+	}
+	
 }

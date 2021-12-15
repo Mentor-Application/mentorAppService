@@ -11,7 +11,6 @@ public class Mentor {
 	
 	private String mentorName;
 	
-	
 	private String email;
 
 	public String getMentorId() {

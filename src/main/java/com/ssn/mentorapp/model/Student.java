@@ -36,7 +36,10 @@ public class Student {
 	private Integer roomNumber;
 	private Integer busRouteNumber;
 	
+	private Parent parent;
 	
+	
+
 	private LocalGuardian localGuardian;
 	
 	private List<SchoolRecord> schoolRecord;
@@ -232,7 +235,15 @@ public class Student {
 		this.busRouteNumber = busRouteNumber;
 	}
 
+	
+	public Parent getParent() {
+		return parent;
+	}
 
+	public void setParent(Parent parent) {
+		this.parent = parent;
+	}
+	
 	public LocalGuardian getLocalGuardian() {
 		return localGuardian;
 	}

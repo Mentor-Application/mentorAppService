@@ -5,11 +5,23 @@ public class ParentDetailRequest {
 	private String studentId;
 	private String parentId;
 	private String parentName;
-	private String address;
-	private String emailId;
+	private String parentAddress;
+	private String parentEmailId;
 	
 	public String getParentId() {
 		return parentId;
+	}
+	public String getParentAddress() {
+		return parentAddress;
+	}
+	public void setParentAddress(String parentAddress) {
+		this.parentAddress = parentAddress;
+	}
+	public String getParentEmailId() {
+		return parentEmailId;
+	}
+	public void setParentEmailId(String parentEmailId) {
+		this.parentEmailId = parentEmailId;
 	}
 	public void setParentId(String parentId) {
 		this.parentId = parentId;
@@ -20,18 +32,7 @@ public class ParentDetailRequest {
 	public void setParentName(String parentName) {
 		this.parentName = parentName;
 	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getEmailId() {
-		return emailId;
-	}
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
-	}
+	
 	public String getStudentId() {
 		return studentId;
 	}

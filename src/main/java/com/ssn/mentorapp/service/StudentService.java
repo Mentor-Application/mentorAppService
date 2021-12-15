@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import com.ssn.mentorapp.model.Challenges;
@@ -17,6 +17,7 @@ import com.ssn.mentorapp.model.FamilyProfile;
 import com.ssn.mentorapp.model.GoalsGrid;
 import com.ssn.mentorapp.model.Hobbies;
 import com.ssn.mentorapp.model.LocalGuardian;
+import com.ssn.mentorapp.model.Parent;
 import com.ssn.mentorapp.model.SchoolRecord;
 import com.ssn.mentorapp.model.StrengthAssessment;
 import com.ssn.mentorapp.model.Student;
@@ -25,12 +26,14 @@ import com.ssn.mentorapp.payload.request.FamilyProfileRequest;
 import com.ssn.mentorapp.payload.request.GoalsGridRequest;
 import com.ssn.mentorapp.payload.request.HobbiesRequest;
 import com.ssn.mentorapp.payload.request.LocalGuardianRequest;
+import com.ssn.mentorapp.payload.request.ParentDetailRequest;
 import com.ssn.mentorapp.payload.request.SchoolRecordRequest;
 import com.ssn.mentorapp.payload.request.StrengthAssessmentRequest;
 import com.ssn.mentorapp.payload.request.StudentDetailsRequest;
 import com.ssn.mentorapp.payload.request.StudentSearchRequest;
 import com.ssn.mentorapp.payload.response.StudentResponse;
 import com.ssn.mentorapp.payload.response.StudentSearchResponse;
+import com.ssn.mentorapp.repository.ParentRepository;
 import com.ssn.mentorapp.repository.StudentRepository;
 
 @Service
@@ -39,7 +42,13 @@ public class StudentService {
 	@Autowired
 	private StudentRepository studentRepository;
 	
+
+	@Autowired
+	private ParentRepository parentRepository;
 	
+	@Autowired
+	private MongoTemplate mongoTemplate;
+
 	
 	public Student updateStudentProfile(StudentDetailsRequest studentDetailsRequest) throws ParseException {
 		Student newStudent = studentRepository.findByEmailId(studentDetailsRequest.getEmailId()).get();
@@ -67,7 +76,16 @@ public class StudentService {
 	}
 	
 	
-	
+//	public Student updateParentProfile(ParentDetailRequest parentDetailRequest) {
+//		Parent parent = parentRepository.findById(parentDetailRequest.getStudentId()).get();
+//		parent.setAddress(parentDetailRequest.getParentAddress());
+//		parent.setEmailId(parentDetailRequest.getParentEmailId());
+//		parent.setParentName(parentDetailRequest.getParentName());
+//		
+//		newStudent.setParent(parent);
+//		
+//		return studentRepository.save(newStudent);
+//	}
 	
 	public Student updateLocalGuardianDetails(LocalGuardianRequest localGuardianRequest) {
 		Student newStudent = studentRepository.findById(localGuardianRequest.getStudentId()).get();
@@ -83,9 +101,9 @@ public class StudentService {
 		return studentRepository.save(newStudent);
 	}
 	
-	public Student updateschoolRecordDetails(List<SchoolRecordRequest> schoolRequest) {
+	public Student updateschoolRecordDetails(List<SchoolRecordRequest> schoolRequest,String studentId) {
 		
-		Student newStudent = studentRepository.findById(schoolRequest.get(0).getStudentId()).get();
+		Student newStudent = studentRepository.findById(studentId).get();
 		
 		List<SchoolRecord> recordList = new ArrayList<SchoolRecord>();
 		recordList = schoolRequest.stream().map(schoolReq ->{
@@ -101,9 +119,9 @@ public class StudentService {
 		return studentRepository.save(newStudent);
 	}
 	
-	public Student updatefamilyProfileDetails(List<FamilyProfileRequest> familyRequest) {
+	public Student updatefamilyProfileDetails(List<FamilyProfileRequest> familyRequest,String studentId) {
 		
-		Student newStudent = studentRepository.findById(familyRequest.get(0).getStudentId()).get();
+		Student newStudent = studentRepository.findById(studentId).get();
 		List<FamilyProfile> familyList = new ArrayList<FamilyProfile>();
 		
 		for (int i= 0;i<familyRequest.size();i++) {
@@ -121,8 +139,8 @@ public class StudentService {
 		return studentRepository.save(newStudent);
 	}
 	
-	public Student updatehobbies(List<HobbiesRequest> hobbiesRequest) {
-		Student newStudent = studentRepository.findById(hobbiesRequest.get(0).getStudentId()).get();
+	public Student updatehobbies(List<HobbiesRequest> hobbiesRequest,String studentId) {
+		Student newStudent = studentRepository.findById(studentId).get();
 		List<Hobbies> hobbieList = new ArrayList<Hobbies>();
 		for (int i= 0;i<hobbiesRequest.size();i++) {
 			Hobbies hobbies = new Hobbies();
@@ -133,8 +151,8 @@ public class StudentService {
 		return studentRepository.save(newStudent);
 	}
 	
-	public Student updatestrengthAssessment(StrengthAssessmentRequest strengthAssessmentRequest) {
-		Student newStudent = studentRepository.findById(strengthAssessmentRequest.getStudentId()).get();
+	public Student updatestrengthAssessment(StrengthAssessmentRequest strengthAssessmentRequest,String studentId) {
+		Student newStudent = studentRepository.findById(studentId).get();
 		StrengthAssessment strengthAssessment = new StrengthAssessment();
 		strengthAssessment.setiAm(strengthAssessmentRequest.getiAm());
 		strengthAssessment.setiCan(strengthAssessmentRequest.getiCan());
@@ -146,8 +164,8 @@ public class StudentService {
 		return studentRepository.save(newStudent);
 	}
 	
-	public Student updategoalsGrid(List<GoalsGridRequest> goalGridRequest) {
-		Student newStudent = studentRepository.findById(goalGridRequest.get(0).getStudentId()).get();
+	public Student updategoalsGrid(List<GoalsGridRequest> goalGridRequest,String studentId) {
+		Student newStudent = studentRepository.findById(studentId).get();
 		List<GoalsGrid> goalsList = new ArrayList<GoalsGrid>();
 		
 		for (int i= 0;i<goalGridRequest.size();i++) {
@@ -163,8 +181,8 @@ public class StudentService {
 		return studentRepository.save(newStudent);
 	}
 	
-	public Student updatechallenges(List<ChallengesRequest> challengesRequest) {
-		Student newStudent = studentRepository.findById(challengesRequest.get(0).getStudentId()).get();
+	public Student updatechallenges(List<ChallengesRequest> challengesRequest,String studentId) {
+		Student newStudent = studentRepository.findById(studentId).get();
 		List<Challenges> challengeList = new ArrayList<Challenges>();
 		
 		for (int i= 0;i<challengesRequest.size();i++){
@@ -202,12 +220,14 @@ public class StudentService {
     	return studentResponses;
     	
     }
+    
 	
     public List<StudentSearchResponse> convertToStudentSearchResponse(List<Student> studentList){
     	List<StudentSearchResponse> studentSearchResponses = new ArrayList<StudentSearchResponse>();
     	
     	studentSearchResponses = studentList.stream().map(st -> {
     		StudentSearchResponse studentSearchResponse = new StudentSearchResponse();
+    		studentSearchResponse.setStudentId(st.getStudentId());
     		studentSearchResponse.setRegisterNumber(st.getRegisterNumber());
     		studentSearchResponse.setBranch(st.getBranch());
     		studentSearchResponse.setPeriodOfStudy(st.getPeriodOfStudy());
@@ -262,6 +282,19 @@ public class StudentService {
 		return studentResponses;	
 		
 	}
+	
+	public void setMentorIdforStudents(List<StudentSearchRequest> studentSearchRequest,String mentorId){
+    	
+    	for(int i=0;i<studentSearchRequest.size();i++)
+    	{
+    	Student newStudent = studentRepository.findById(studentSearchRequest.get(i).getStudentId()).get();
+    	newStudent.setMentorId(mentorId);
+    	studentRepository.save(newStudent);
+    	}	
+
+    }
+	
+	
 }
 
 

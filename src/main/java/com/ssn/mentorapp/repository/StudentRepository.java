@@ -16,6 +16,7 @@ import com.ssn.mentorapp.model.Student;
 @Repository
 public interface StudentRepository extends MongoRepository<Student, String> {
 	
+
 	@Query("{studentName :  /^?0/ , branch : ?1 , section : ?2 , periodOfStudy : ?3}")
 	Page<Student> findAllByStudentNameAndBranchAndSectionAndPeriodOfStudy(Pageable pageable,String name,String branch,String section,String period);
 	
@@ -24,4 +25,5 @@ public interface StudentRepository extends MongoRepository<Student, String> {
 	Optional<Student> findByEmailId(String email);
 	
 	List<Student> findAllByMentorId(String mentorId);
+	
 }

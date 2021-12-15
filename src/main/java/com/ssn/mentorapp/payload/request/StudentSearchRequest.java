@@ -2,6 +2,8 @@ package com.ssn.mentorapp.payload.request;
 
 public class StudentSearchRequest {
 	
+	private String studentId;
+
 	private String studentName;
 	
 	private String branch;
@@ -10,7 +12,13 @@ public class StudentSearchRequest {
 	
 	private String section;
 	
-	
+	public String getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
+	}
 
 
 	public String getStudentName() {

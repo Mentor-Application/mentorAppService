@@ -16,11 +16,11 @@ public class ParentService {
 	public Parent updateParentDetails(ParentDetailRequest parentDetailRequest) {
 
 	
-		Parent parent = parentRepository.findByEmailId(parentDetailRequest.getEmailId()).get();
+		Parent parent = parentRepository.findByEmailId(parentDetailRequest.getParentEmailId()).get();
 		parent.setParentId(parentDetailRequest.getParentId());
 		parent.setParentName(parentDetailRequest.getParentName());
-		parent.setAddress(parentDetailRequest.getAddress());
-		parent.setEmailId(parentDetailRequest.getEmailId());
+		parent.setAddress(parentDetailRequest.getParentAddress());
+		parent.setEmailId(parentDetailRequest.getParentEmailId());
 		parent.setStudentId(parentDetailRequest.getStudentId());
 	
 		

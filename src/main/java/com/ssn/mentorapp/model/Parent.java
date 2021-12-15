@@ -25,6 +25,7 @@ public class Parent {
 	public void setParentName(String parentName) {
 		this.parentName = parentName;
 	}
+	
 	public String getAddress() {
 		return address;
 	}
