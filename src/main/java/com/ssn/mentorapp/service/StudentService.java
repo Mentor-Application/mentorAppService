@@ -51,7 +51,7 @@ public class StudentService {
 
 	
 	public Student updateStudentProfile(StudentDetailsRequest studentDetailsRequest) throws ParseException {
-		Student newStudent = studentRepository.findByEmailId(studentDetailsRequest.getEmailId()).get();
+		Student newStudent = studentRepository.findById(studentDetailsRequest.getStudentId()).get();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		newStudent.setStudentName(studentDetailsRequest.getStudentName());
 		newStudent.setRegisterNumber(studentDetailsRequest.getRegisterNumber());

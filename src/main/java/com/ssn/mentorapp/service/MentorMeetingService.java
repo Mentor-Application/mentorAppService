@@ -25,7 +25,7 @@ public class MentorMeetingService {
 		Optional<MentorMeeting> meeting = meetingRepository.findByStudentIdAndSemesterNameAndFocusOnDiscussion(mentorMeetingRequest.getStudentId(), 
 																									 mentorMeetingRequest.getSemesterName(), 
 																								 mentorMeetingRequest.getFocusOnDiscussion());
-		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		if(meeting.isPresent()) {
 			meeting.get().setFocusOnDiscussion(mentorMeetingRequest.getFocusOnDiscussion());
 			meeting.get().setMeetingDate(LocalDate.parse(mentorMeetingRequest.getMeetingDate(),format));
