@@ -53,11 +53,11 @@ public class StudentController {
 		return ResponseEntity.ok(newStudent);
 	}
 	
-//	@PostMapping("/parent")
-//	public ResponseEntity<?> setParent(@RequestBody ParentDetailRequest parentDetailRequest){
-//		Student newStudent = studentService.updateParentProfile(parentDetailRequest);
-//		return ResponseEntity.ok(newStudent);
-//	}
+	@PostMapping("/parent")
+	public ResponseEntity<?> setParent(@RequestBody ParentDetailRequest parentDetailRequest){
+		Student newStudent = studentService.updateParentProfile(parentDetailRequest);
+		return ResponseEntity.ok(newStudent);
+	}
 
 	
 	@PostMapping("/{studentId}/guardian")
@@ -71,6 +71,17 @@ public class StudentController {
 		Student existingStudent = studentRepository.findById(studentId).get();
 		if(existingStudent != null) {
 			return ResponseEntity.ok(existingStudent.getLocalGuardian());
+		}
+		else {
+			return ResponseEntity.badRequest().body(new MessageResponse("student not found"));
+		}
+	}
+	
+	@GetMapping("/list/parent/{studentId}")
+	public ResponseEntity<?> getParent(@PathVariable("studentId")String studentId){
+		Student existingStudent = studentRepository.findById(studentId).get();
+		if(existingStudent != null) {
+			return ResponseEntity.ok(existingStudent.getParent());
 		}
 		else {
 			return ResponseEntity.badRequest().body(new MessageResponse("student not found"));

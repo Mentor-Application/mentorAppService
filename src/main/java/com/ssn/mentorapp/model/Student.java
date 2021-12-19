@@ -3,6 +3,7 @@ package com.ssn.mentorapp.model;
 
 
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class Student {
 	private String personalEmail;
 	private String mentorId;
 	private String gender;
-	private Date dob;
+	private LocalDate dob;
 	private String branch;
 	private String section;
 	private String mobileNumber;	
@@ -115,11 +116,11 @@ public class Student {
 	}
 
 
-	public Date getDob() {
+	public LocalDate getDob() {
 		return dob;
 	}
 
-	public void setDob(Date dob) {
+	public void setDob(LocalDate dob) {
 		this.dob = dob;
 	}
 

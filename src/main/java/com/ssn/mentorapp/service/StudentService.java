@@ -2,6 +2,8 @@ package com.ssn.mentorapp.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,11 +54,11 @@ public class StudentService {
 	
 	public Student updateStudentProfile(StudentDetailsRequest studentDetailsRequest) throws ParseException {
 		Student newStudent = studentRepository.findById(studentDetailsRequest.getStudentId()).get();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		newStudent.setStudentName(studentDetailsRequest.getStudentName());
 		newStudent.setRegisterNumber(studentDetailsRequest.getRegisterNumber());
 		newStudent.setGender(studentDetailsRequest.getGender());
-		newStudent.setDob(format.parse(studentDetailsRequest.getDob()));
+		newStudent.setDob(LocalDate.parse(studentDetailsRequest.getDob()));
 		newStudent.setBranch(studentDetailsRequest.getBranch());
 		newStudent.setSection(studentDetailsRequest.getSection());
 		newStudent.setMobileNumber(studentDetailsRequest.getMobileNumber());
@@ -76,16 +78,17 @@ public class StudentService {
 	}
 	
 	
-//	public Student updateParentProfile(ParentDetailRequest parentDetailRequest) {
-//		Parent parent = parentRepository.findById(parentDetailRequest.getStudentId()).get();
-//		parent.setAddress(parentDetailRequest.getParentAddress());
-//		parent.setEmailId(parentDetailRequest.getParentEmailId());
-//		parent.setParentName(parentDetailRequest.getParentName());
-//		
-//		newStudent.setParent(parent);
-//		
-//		return studentRepository.save(newStudent);
-//	}
+	public Student updateParentProfile(ParentDetailRequest parentDetailRequest) {
+		Student newStudent = studentRepository.findById(parentDetailRequest.getStudentId()).get();
+		Parent parent = new Parent();
+		parent.setAddress(parentDetailRequest.getParentAddress());
+		parent.setEmailId(parentDetailRequest.getParentEmailId());
+		parent.setParentName(parentDetailRequest.getParentName());
+		
+		newStudent.setParent(parent);
+		
+		return studentRepository.save(newStudent);
+	}
 	
 	public Student updateLocalGuardianDetails(LocalGuardianRequest localGuardianRequest,String studentId) {
 		Student newStudent = studentRepository.findById(studentId).get();
