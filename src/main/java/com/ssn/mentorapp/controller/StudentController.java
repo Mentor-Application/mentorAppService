@@ -60,9 +60,9 @@ public class StudentController {
 //	}
 
 	
-	@PostMapping("/guardian")
-	public ResponseEntity<?> setLocalGuardian(@RequestBody LocalGuardianRequest localGuardianRequest){
-		Student newStudent = studentService.updateLocalGuardianDetails(localGuardianRequest);
+	@PostMapping("/{studentId}/guardian")
+	public ResponseEntity<?> setLocalGuardian(@RequestBody LocalGuardianRequest localGuardianRequest,@PathVariable("studentId") String studentId){
+		Student newStudent = studentService.updateLocalGuardianDetails(localGuardianRequest,studentId);
 		return ResponseEntity.ok(newStudent);
 	}
 	

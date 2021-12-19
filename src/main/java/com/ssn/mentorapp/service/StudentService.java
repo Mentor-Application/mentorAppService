@@ -87,8 +87,8 @@ public class StudentService {
 //		return studentRepository.save(newStudent);
 //	}
 	
-	public Student updateLocalGuardianDetails(LocalGuardianRequest localGuardianRequest) {
-		Student newStudent = studentRepository.findById(localGuardianRequest.getStudentId()).get();
+	public Student updateLocalGuardianDetails(LocalGuardianRequest localGuardianRequest,String studentId) {
+		Student newStudent = studentRepository.findById(studentId).get();
 		LocalGuardian localGuardian = new LocalGuardian();
 		localGuardian.setGuardianName(localGuardianRequest.getGuardianName());
 		localGuardian.setMobileNumber(localGuardianRequest.getMobileNumber());
@@ -112,6 +112,7 @@ public class StudentService {
 				schoolRecord.setYearPassedOut(schoolReq.getYearPassedOut());
 				schoolRecord.setNameOfSchool(schoolReq.getNameOfSchool());
 				schoolRecord.setBoard(schoolReq.getBoard());
+				schoolRecord.setPercentage(schoolReq.getPercentage());
 				schoolRecord.setTwelfthCutOff(schoolReq.getTwelfthCutOff());
 				return schoolRecord;			
 		}).collect(Collectors.toList());	
