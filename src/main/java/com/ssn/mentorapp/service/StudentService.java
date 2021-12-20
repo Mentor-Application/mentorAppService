@@ -97,8 +97,6 @@ public class StudentService {
 		localGuardian.setMobileNumber(localGuardianRequest.getMobileNumber());
 		localGuardian.setEmailId(localGuardianRequest.getEmailId());
 		localGuardian.setAddress(localGuardianRequest.getAddress());
-		
-		newStudent.setStudentId(localGuardianRequest.getStudentId());
 		newStudent.setLocalGuardian(localGuardian);
 		
 		return studentRepository.save(newStudent);
@@ -162,7 +160,6 @@ public class StudentService {
 		strengthAssessment.setiCan(strengthAssessmentRequest.getiCan());
 		strengthAssessment.setiHave(strengthAssessmentRequest.getiHave());
 		
-		newStudent.setStudentId(strengthAssessmentRequest.getStudentId());
 		newStudent.setStrenghAssessment(strengthAssessment);
 		
 		return studentRepository.save(newStudent);
