@@ -298,7 +298,17 @@ public class StudentService {
     	}	
 
     }
-	
+
+	public void setMentorIdNullforStudents(List<StudentSearchRequest> studentSearchRequest){
+    	
+    	for(int i=0;i<studentSearchRequest.size();i++)
+    	{
+    	Student newStudent = studentRepository.findById(studentSearchRequest.get(i).getStudentId()).get();
+    	newStudent.setMentorId(null);
+    	studentRepository.save(newStudent);
+    	}	
+
+    }
 	
 }
 

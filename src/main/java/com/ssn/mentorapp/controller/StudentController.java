@@ -240,4 +240,12 @@ public class StudentController {
 		return ResponseEntity.ok(null);
 	}
 	
+	@PostMapping("/mentor/{mentorId}/editmentee")
+	public ResponseEntity<?> setMentorIdNullforStudents(@RequestBody List<StudentSearchRequest> studentSearchRequest){
+		
+		studentService.setMentorIdNullforStudents(studentSearchRequest);
+		
+		return ResponseEntity.ok(null);
+	}
+	
 }
