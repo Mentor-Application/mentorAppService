@@ -218,7 +218,11 @@ public class StudentService {
     			studentSearchRequest.getBranch(),
     			studentSearchRequest.getSection(),
     			studentSearchRequest.getPeriodOfStudy());
-    	
+    	for(Student st : students.toList()) {
+    		if(st.getMentorId() != null) {
+    			students.toList().remove(st);
+    		}
+    	}
     	List<StudentSearchResponse> studentResponses = convertToStudentSearchResponse(students.toList());
     	
     	return studentResponses;
