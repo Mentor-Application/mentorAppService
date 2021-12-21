@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -215,12 +216,15 @@ public class StudentService {
     			studentSearchRequest.getBranch(),
     			studentSearchRequest.getSection(),
     			studentSearchRequest.getPeriodOfStudy());
-    	for(Student st : students.toList()) {
-    		if(st.getMentorId() != null) {
-    			students.toList().remove(st);
+    	List<Student> studentList = new ArrayList<Student>();
+    	Iterator iter = students.iterator();
+    	while(iter.hasNext()) {
+    		Student pageStudent = (Student)iter.next();
+    		if(pageStudent.getMentorId() == null) {
+    			studentList.add(pageStudent);
     		}
     	}
-    	List<StudentSearchResponse> studentResponses = convertToStudentSearchResponse(students.toList());
+    	List<StudentSearchResponse> studentResponses = convertToStudentSearchResponse(studentList);
     	
     	return studentResponses;
     	
