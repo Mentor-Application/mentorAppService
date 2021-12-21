@@ -1,7 +1,9 @@
 package com.ssn.mentorapp.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
 public class Disciplinary {
 	@Id
 	private String disciplinaryId;

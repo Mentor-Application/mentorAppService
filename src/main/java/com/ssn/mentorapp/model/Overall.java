@@ -1,16 +1,18 @@
 package com.ssn.mentorapp.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
 public class Overall {
 	
 	@Id
-	private String OverallId;
+	private String overallId;
 	public String getOverallId() {
-		return OverallId;
+		return overallId;
 	}
 	public void setOverallId(String overallId) {
-		OverallId = overallId;
+		this.overallId = overallId;
 	}
 	private String studentId;
 	private String year1;

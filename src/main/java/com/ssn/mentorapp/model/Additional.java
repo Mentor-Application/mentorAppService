@@ -1,10 +1,12 @@
 package com.ssn.mentorapp.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
 public class Additional {
 	@Id
-	private String AdditionalId;
+	private String additionalId;
 	private String studentId;
 	private String percentage;
 	private String className;
@@ -12,10 +14,10 @@ public class Additional {
 	private String graduateStudy;
 	private String careerInfo;
 	public String getAdditionalId() {
-		return AdditionalId;
+		return additionalId;
 	}
 	public void setAdditionalId(String additionalId) {
-		AdditionalId = additionalId;
+		this.additionalId = additionalId;
 	}
 	public String getStudentId() {
 		return studentId;

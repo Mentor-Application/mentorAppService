@@ -1,10 +1,12 @@
 package com.ssn.mentorapp.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
 public class ExtraCurricular {
 	@Id
-	private String ExtraCurricularId;
+	private String extraCurricularId;
 	private String studentId;
 	private String year1;
 	private String year2;
@@ -12,14 +14,20 @@ public class ExtraCurricular {
 	private String year4;
 	
 	
+//	public String getExtraCurricularId() {
+//		return extraCurricularId;
+//	}
+//	public void setExtraCurricularId(String extraCurricularId) {
+//		this.extraCurricularId = extraCurricularId;
+//	}
 	public String getYear1() {
 		return year1;
 	}
 	public String getExtraCurricularId() {
-		return ExtraCurricularId;
+		return extraCurricularId;
 	}
 	public void setExtraCurricularId(String extraCurricularId) {
-		ExtraCurricularId = extraCurricularId;
+		this.extraCurricularId = extraCurricularId;
 	}
 	public void setYear1(String year1) {
 		this.year1 = year1;
