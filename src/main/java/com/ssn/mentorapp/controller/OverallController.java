@@ -14,6 +14,7 @@ import com.ssn.mentorapp.model.Disciplinary;
 import com.ssn.mentorapp.model.Overall;
 import com.ssn.mentorapp.payload.request.DisciplinaryRequest;
 import com.ssn.mentorapp.payload.request.OverallRequest;
+import com.ssn.mentorapp.payload.response.MessageResponse;
 import com.ssn.mentorapp.service.DisciplinaryService;
 import com.ssn.mentorapp.service.OverallService;
 
@@ -36,6 +37,11 @@ public class OverallController {
 	public ResponseEntity<?> getYearDetails(@PathVariable("studentId")String studentId)
 	{
 		Overall overall=overallService.getYearDetails(studentId);
-		return ResponseEntity.ok(overall);
+		if(overall != null) {
+			return ResponseEntity.ok(overall);
+		}
+		else {
+			return ResponseEntity.badRequest().body(new MessageResponse("student not found"));
+		}
 	}
 }

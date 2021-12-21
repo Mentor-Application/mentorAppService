@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssn.mentorapp.model.Additional;
 import com.ssn.mentorapp.payload.request.AdditionalRequest;
+import com.ssn.mentorapp.payload.response.MessageResponse;
 import com.ssn.mentorapp.service.AdditionalService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -31,7 +32,12 @@ public class AdditionalController {
 		public ResponseEntity<?> getDetails(@PathVariable("studentId")String studentId)
 		{
 			Additional additional=additionalService.getDetails(studentId);
-			return ResponseEntity.ok(additional);
+			if(additional != null) {
+				return ResponseEntity.ok(additional);
+			}
+			else {
+				return ResponseEntity.badRequest().body(new MessageResponse("student not found"));
+			}
 			
 		}
 }

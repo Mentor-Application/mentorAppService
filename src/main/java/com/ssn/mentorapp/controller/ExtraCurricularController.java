@@ -14,6 +14,7 @@ import com.ssn.mentorapp.model.Disciplinary;
 import com.ssn.mentorapp.model.ExtraCurricular;
 import com.ssn.mentorapp.payload.request.DisciplinaryRequest;
 import com.ssn.mentorapp.payload.request.ExtraCurricularRequest;
+import com.ssn.mentorapp.payload.response.MessageResponse;
 import com.ssn.mentorapp.service.DisciplinaryService;
 import com.ssn.mentorapp.service.ExtraCurricularService;
 
@@ -34,6 +35,11 @@ public class ExtraCurricularController {
 	public ResponseEntity<?> getYearDetails(@PathVariable("studentId")String studentId)
 	{
 		ExtraCurricular extraCurricular=extraCurricularService.getYearDetails(studentId);
-		return ResponseEntity.ok(extraCurricular);
+		if(extraCurricular != null) {
+			return ResponseEntity.ok(extraCurricular);
+		}
+		else {
+			return ResponseEntity.badRequest().body(new MessageResponse("student not found"));
+		}
 	}
 }

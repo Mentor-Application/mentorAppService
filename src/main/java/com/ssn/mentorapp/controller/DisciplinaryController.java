@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssn.mentorapp.model.Disciplinary;
 import com.ssn.mentorapp.payload.request.DisciplinaryRequest;
+import com.ssn.mentorapp.payload.response.MessageResponse;
 import com.ssn.mentorapp.service.DisciplinaryService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -33,7 +34,12 @@ public class DisciplinaryController {
 	public ResponseEntity<?> getYearDetails(@PathVariable("studentId") String studentId)
 	{
 		Disciplinary disciplinary=disciplinaryService.getYearDetails(studentId);
-		return ResponseEntity.ok(disciplinary);
+		if(disciplinary != null) {
+			return ResponseEntity.ok(disciplinary);
+		}
+		else {
+			return ResponseEntity.badRequest().body(new MessageResponse("student not found"));
+		}
 	}
 	
 }
