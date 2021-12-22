@@ -60,7 +60,7 @@ public class AuthController {
 	private PasswordEncoder encoder;
 	
 	@Autowired
-	private FacultyRepository facutyRspository;
+	private FacultyRepository facutyRepository;
 	
 	@Autowired
 	private RoleRepository roleRepository;
@@ -154,8 +154,8 @@ public class AuthController {
 					Faculty faculty = new Faculty();
 					faculty.setFacultyName(signUpRequest.getUserName());
 					faculty.setFacultyName(signUpRequest.getEmail());
-					facutyRspository.save(faculty);
-					Faculty existingFaculty = facutyRspository.fingByFacultyEmail(signUpRequest.getEmail()).get();
+					facutyRepository.save(faculty);
+					Faculty existingFaculty = facutyRepository.fingByFacultyEmail(signUpRequest.getEmail()).get();
 					user.setFacultyId(existingFaculty.getFacultyId());
 					break;
 				case "parent":
