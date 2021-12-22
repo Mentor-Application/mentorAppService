@@ -38,20 +38,20 @@ public class ParentController {
 //		return ResponseEntity.ok(newParent);
 //	}
 	
-//	@GetMapping("/{studentId}")
-//	public ResponseEntity<?> getParent(@PathVariable("studentId") String studentId){
-//		Parent existingParent = parentRepository.findByStudentId(studentId).get();
-//		return ResponseEntity.ok(existingParent);
-//	}
-	
-	public ResponseEntity<?> getStudentByParentId(@PathVariable("parentId") String parentId){
+	@GetMapping("/{parentId}")
+	public ResponseEntity<?> getParent(@PathVariable("parentId") String parentId){
 		ParentUser existingParent = parentRepository.findById(parentId).get();
-		Student existingStudent = studentRepository.findById(existingParent.getStudentId()).get();
-		if(existingStudent == null) {
-			return ResponseEntity.badRequest().body((new MessageResponse("student not found")));
-		}
-		else {
-			return ResponseEntity.ok(existingStudent);
-		}
+		return ResponseEntity.ok(existingParent);
 	}
+	
+//	public ResponseEntity<?> getStudentByParentId(@PathVariable("parentId") String parentId){
+//		ParentUser existingParent = parentRepository.findById(parentId).get();
+//		Student existingStudent = studentRepository.findById(existingParent.getStudentId()).get();
+//		if(existingStudent == null) {
+//			return ResponseEntity.badRequest().body((new MessageResponse("student not found")));
+//		}
+//		else {
+//			return ResponseEntity.ok(existingStudent);
+//		}
+//	}
 }
