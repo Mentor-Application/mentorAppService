@@ -25,7 +25,9 @@ import com.ssn.mentorapp.repository.MentorRepository;
 import com.ssn.mentorapp.repository.ParentRepository;
 import com.ssn.mentorapp.repository.RoleRepository;
 import com.ssn.mentorapp.repository.StudentRepository;
+import com.ssn.mentorapp.repository.FacultyRepository;
 import com.ssn.mentorapp.model.ERole;
+import com.ssn.mentorapp.model.Faculty;
 import com.ssn.mentorapp.model.Mentor;
 import com.ssn.mentorapp.model.Parent;
 import com.ssn.mentorapp.model.ParentUser;
@@ -56,6 +58,9 @@ public class AuthController {
 	
 	@Autowired
 	private PasswordEncoder encoder;
+	
+	@Autowired
+	private FacultyRepository facutyRspository;
 	
 	@Autowired
 	private RoleRepository roleRepository;
@@ -146,6 +151,12 @@ public class AuthController {
 					Role facultyRole = roleRepository.findByRoleName(ERole.FACULTY)
 					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(facultyRole);
+					Faculty faculty = new Faculty();
+					faculty.setFacultyName(signUpRequest.getUserName());
+					faculty.setFacultyName(signUpRequest.getEmail());
+					facutyRspository.save(faculty);
+					Faculty existingFaculty = facutyRspository.fingByFacultyEmail(signUpRequest.getEmail()).get();
+					user.setFacultyId(existingFaculty.getFacultyId());
 					break;
 				case "parent":
 					Role parentRole = roleRepository.findByRoleName(ERole.PARENT)
