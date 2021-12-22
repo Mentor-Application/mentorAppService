@@ -3,22 +3,16 @@ package com.ssn.mentorapp.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+
 public class Parent {
 
-	@Id
-	private String parentId;
+	
 	private String parentName;
 	private String address;
 	private String emailId;
 	private String studentId;
 	
-	public String getParentId() {
-		return parentId;
-	}
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
-	}
+	
 	public String getParentName() {
 		return parentName;
 	}

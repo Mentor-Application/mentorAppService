@@ -18,5 +18,5 @@ public interface UserRepository extends MongoRepository<User, String> {
 
 	Boolean existsByUserName(String username);
 	
-	
+	Boolean existsByEmail(String email);
 }

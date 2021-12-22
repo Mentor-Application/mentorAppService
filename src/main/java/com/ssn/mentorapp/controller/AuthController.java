@@ -2,6 +2,7 @@ package com.ssn.mentorapp.controller;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -27,6 +28,7 @@ import com.ssn.mentorapp.repository.StudentRepository;
 import com.ssn.mentorapp.model.ERole;
 import com.ssn.mentorapp.model.Mentor;
 import com.ssn.mentorapp.model.Parent;
+import com.ssn.mentorapp.model.ParentUser;
 import com.ssn.mentorapp.model.Role;
 import com.ssn.mentorapp.model.Student;
 import com.ssn.mentorapp.model.User;
@@ -92,7 +94,7 @@ public class AuthController {
 			return ResponseEntity.badRequest().body(new MessageResponse("Username is already taken!"));
 		}
 		// need to add email validation method
-		if (userRepository.existsByUserName(signUpRequest.getEmail())) {
+		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
 			return ResponseEntity.badRequest().body(new MessageResponse("Email is already in use!"));
 		}
 
@@ -113,6 +115,13 @@ public class AuthController {
 			user.setStudentId(existingStudent.getStudentId());
 			
 		} else {
+			if(signUpRequest.getStudentEmail() != null) {
+				Optional<Student> existStudent = studentRepository.findByEmailId(signUpRequest.getStudentEmail());
+				if(existStudent.isEmpty()) {
+					return ResponseEntity.badRequest().body(new MessageResponse("Student not found"));
+				}
+			}
+			
 			strRoles.forEach(role -> {
 				switch (role) {
 				case "admin":
@@ -142,10 +151,13 @@ public class AuthController {
 					Role parentRole = roleRepository.findByRoleName(ERole.PARENT)
 					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(parentRole);
-					Parent parent = new Parent();
+					ParentUser parent = new ParentUser();
 					parent.setEmailId(signUpRequest.getEmail());
+					parent.setStudentEmail(signUpRequest.getStudentEmail());
+					Student existStudent = studentRepository.findByEmailId(signUpRequest.getStudentEmail()).get();
+					parent.setStudentId(existStudent.getStudentId());
 					parentRepository.save(parent);
-					Parent existingParent = parentRepository.findByEmailId(signUpRequest.getEmail()).get();
+					ParentUser existingParent = parentRepository.findByEmailId(signUpRequest.getEmail()).get();
 					user.setParentId(existingParent.getParentId());
 					break;
 				default:

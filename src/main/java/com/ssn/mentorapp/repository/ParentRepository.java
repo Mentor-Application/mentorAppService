@@ -6,12 +6,13 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import com.ssn.mentorapp.model.Parent;
+import com.ssn.mentorapp.model.ParentUser;
 
 @Repository
-public interface ParentRepository extends MongoRepository<Parent, String> {
+public interface ParentRepository extends MongoRepository<ParentUser, String> {
 
 	
-	Optional<Parent> findByEmailId(String email);
+	Optional<ParentUser> findByEmailId(String email);
 	
-	Optional<Parent> findByStudentId(String studentId);
+	Optional<ParentUser> findByStudentId(String studentId);
 }

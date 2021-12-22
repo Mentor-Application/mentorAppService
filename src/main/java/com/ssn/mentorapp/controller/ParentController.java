@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssn.mentorapp.model.Parent;
+import com.ssn.mentorapp.model.ParentUser;
 import com.ssn.mentorapp.model.Student;
 import com.ssn.mentorapp.payload.request.ParentDetailRequest;
 import com.ssn.mentorapp.payload.response.MessageResponse;
@@ -23,8 +24,7 @@ import com.ssn.mentorapp.service.ParentService;
 @RequestMapping("/parent")
 public class ParentController {
 	
-	@Autowired
-	private ParentService parentService;
+	
 	
 	@Autowired
 	private ParentRepository parentRepository;
@@ -45,7 +45,7 @@ public class ParentController {
 //	}
 	
 	public ResponseEntity<?> getStudentByParentId(@PathVariable("parentId") String parentId){
-		Parent existingParent = parentRepository.findById(parentId).get();
+		ParentUser existingParent = parentRepository.findById(parentId).get();
 		Student existingStudent = studentRepository.findById(existingParent.getStudentId()).get();
 		if(existingStudent == null) {
 			return ResponseEntity.badRequest().body((new MessageResponse("student not found")));

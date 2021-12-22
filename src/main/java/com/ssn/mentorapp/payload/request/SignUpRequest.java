@@ -14,6 +14,8 @@ public class SignUpRequest {
 	@NonNull
 	private String password;
 	
+	private String studentEmail;
+	
 	private Set<String> roles;
 
 	public String getUserName() {
@@ -46,6 +48,14 @@ public class SignUpRequest {
 
 	public void setRoles(Set<String> roles) {
 		this.roles = roles;
+	}
+
+	public String getStudentEmail() {
+		return studentEmail;
+	}
+
+	public void setStudentEmail(String studentEmail) {
+		this.studentEmail = studentEmail;
 	}
 	
 	
