@@ -8,5 +8,5 @@ import com.ssn.mentorapp.model.Faculty;
 
 public interface FacultyRepository extends  MongoRepository<Faculty, String> {
 
-	Optional<Faculty> fingByFacultyEmail(String email);
+	Optional<Faculty> findByFacultyEmail(String email);
 }
