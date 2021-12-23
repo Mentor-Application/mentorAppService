@@ -11,7 +11,7 @@ public class Faculty {
 	
 	private String facultyName;
 	
-	private String FacultyEmail;
+	private String facultyEmail;
 
 	public String getFacultyId() {
 		return facultyId;
@@ -30,11 +30,11 @@ public class Faculty {
 	}
 
 	public String getFacultyEmail() {
-		return FacultyEmail;
+		return facultyEmail;
 	}
 
 	public void setFacultyEmail(String facultyEmail) {
-		FacultyEmail = facultyEmail;
+		this.facultyEmail = facultyEmail;
 	}
 	
 	

@@ -153,7 +153,7 @@ public class AuthController {
 					roles.add(facultyRole);
 					Faculty faculty = new Faculty();
 					faculty.setFacultyName(signUpRequest.getUserName());
-					faculty.setFacultyName(signUpRequest.getEmail());
+					faculty.setFacultyEmail(signUpRequest.getEmail());
 					facultyRepository.save(faculty);
 					Faculty existingFaculty = facultyRepository.findByFacultyEmail(signUpRequest.getEmail()).get();
 					user.setFacultyId(existingFaculty.getFacultyId());

@@ -1,15 +1,13 @@
 package com.ssn.mentorapp.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 
 public class Parent {
 
 	
 	private String parentName;
-	private String address;
-	private String emailId;
+	private String parentAddress;
+	private String parentEmailId;
 	private String studentId;
 	
 	
@@ -20,17 +18,18 @@ public class Parent {
 		this.parentName = parentName;
 	}
 	
-	public String getAddress() {
-		return address;
+	
+	public String getParentAddress() {
+		return parentAddress;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setParentAddress(String parentAddress) {
+		this.parentAddress = parentAddress;
 	}
-	public String getEmailId() {
-		return emailId;
+	public String getParentEmailId() {
+		return parentEmailId;
 	}
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
+	public void setParentEmailId(String parentEmailId) {
+		this.parentEmailId = parentEmailId;
 	}
 	public String getStudentId() {
 		return studentId;

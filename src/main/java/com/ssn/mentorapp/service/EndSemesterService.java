@@ -19,11 +19,9 @@ public class EndSemesterService {
 	
 	
 	public Endsemester updateEndSemMarks(EndSemesterRequest endSemesterRequest) {
-		Optional<Endsemester> endsem = endSemesterRespository.findBySemesterNameAndStudentIdAndSubjectCode(endSemesterRequest.getSemesterName(),
-																										   endSemesterRequest.getStudentId(), 
-																										   endSemesterRequest.getSubjectCode());
+		Optional<Endsemester> endsem = endSemesterRespository.findById(endSemesterRequest.getEndsemId());
 		if(endsem.isPresent()) {
-			endsem.get().setEndsemId(endSemesterRequest.getEndsemId());
+			
 			endsem.get().setGrade(endSemesterRequest.getGrade());
 			endsem.get().setGradePoints(endSemesterRequest.getGradePoints());
 			endsem.get().setMonthAndYearOfPassing(endSemesterRequest.getMonthAndYearOfPassing());
@@ -38,7 +36,7 @@ public class EndSemesterService {
 		}
 		else {
 			Endsemester endsemnew = new Endsemester();
-			endsemnew.setEndsemId(endSemesterRequest.getEndsemId());
+			
 			endsemnew.setGrade(endSemesterRequest.getGrade());
 			endsemnew.setGradePoints(endSemesterRequest.getGradePoints());
 			endsemnew.setMonthAndYearOfPassing(endSemesterRequest.getMonthAndYearOfPassing());

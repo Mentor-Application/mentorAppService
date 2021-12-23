@@ -22,8 +22,7 @@ public class MarkService {
 	public Marks updateMark(MarkRequest markRequest) {
 		
 		Optional<Marks> mark = markRepository
-				.findBySemesterNameAndStudentIdAndSubjectCode(markRequest.getSemesterName(),
-						markRequest.getStudentId(), markRequest.getSubjectCode());
+				.findById(markRequest.getMarkId());
 
 		if (!mark.isEmpty()) {
 			mark.get().setFirstCatMark(markRequest.getFirstCatMark());

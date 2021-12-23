@@ -221,6 +221,20 @@ public class StudentController {
 		return ResponseEntity.ok(students); 
 	}
 	
+	@GetMapping("/faculty/search")
+	public ResponseEntity<?> searchStudentForFaculty(@RequestParam String periodOfStudy,
+											@RequestParam String studentName,
+											@RequestParam String branch,
+											@RequestParam String section){
+		StudentSearchRequest studentSearchRequest = new StudentSearchRequest();
+		studentSearchRequest.setBranch(branch);
+		studentSearchRequest.setPeriodOfStudy(periodOfStudy);
+		studentSearchRequest.setSection(section);
+		studentSearchRequest.setStudentName(studentName);
+		List<StudentSearchResponse> students = studentService.searchStudentForFaculty(studentSearchRequest,0,10);
+		return ResponseEntity.ok(students); 
+	}
+	
 	@GetMapping("/mentor/{mentorId}")
 	public ResponseEntity<?> getStudentsByMentorId(@PathVariable("mentorId") String mentorId){
 		List<StudentResponse> studentResponse = studentService.getStudentByMentorId(mentorId);

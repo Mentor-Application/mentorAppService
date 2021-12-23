@@ -82,8 +82,8 @@ public class StudentService {
 	public Student updateParentProfile(ParentDetailRequest parentDetailRequest) {
 		Student newStudent = studentRepository.findById(parentDetailRequest.getStudentId()).get();
 		Parent parent = new Parent();
-		parent.setAddress(parentDetailRequest.getParentAddress());
-		parent.setEmailId(parentDetailRequest.getParentEmailId());
+		parent.setParentAddress(parentDetailRequest.getParentAddress());
+		parent.setParentEmailId(parentDetailRequest.getParentEmailId());
 		parent.setParentName(parentDetailRequest.getParentName());
 		
 		newStudent.setParent(parent);
@@ -225,6 +225,21 @@ public class StudentService {
     		}
     	}
     	List<StudentSearchResponse> studentResponses = convertToStudentSearchResponse(studentList);
+    	
+    	return studentResponses;
+    	
+    }
+    
+    public List<StudentSearchResponse> searchStudentForFaculty(StudentSearchRequest studentSearchRequest,int from, int size){
+    	
+    	Page<Student> students = studentRepository.findAllByStudentNameAndBranchAndSectionAndPeriodOfStudy(
+    			PageRequest.of(from, size),
+    			studentSearchRequest.getStudentName(), 
+    			studentSearchRequest.getBranch(),
+    			studentSearchRequest.getSection(),
+    			studentSearchRequest.getPeriodOfStudy());
+    	
+    	List<StudentSearchResponse> studentResponses = convertToStudentSearchResponse(students.toList());
     	
     	return studentResponses;
     	
