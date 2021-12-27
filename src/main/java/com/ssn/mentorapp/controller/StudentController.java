@@ -1,7 +1,12 @@
 package com.ssn.mentorapp.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
+import java.util.Base64;
+import java.util.Base64.Decoder;
 import java.util.List;
+
+import javax.mail.Multipart;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ssn.mentorapp.model.Parent;
 import com.ssn.mentorapp.model.Student;
@@ -146,6 +152,27 @@ public class StudentController {
 		else {
 			return ResponseEntity.badRequest().body(new MessageResponse("student not found"));
 		}
+	}
+	
+	@PostMapping("/{studentId}/picture")
+	public ResponseEntity<?> setProfilePic(@RequestParam("picture") MultipartFile picture,@PathVariable("studentId") String studentId){
+		Student newStudent = studentRepository.findById(studentId).get();
+		byte[] image;
+		try {
+			image = picture.getBytes();
+			newStudent.setPhoto(image);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		studentRepository.save(newStudent);
+		return ResponseEntity.ok(newStudent.getPhoto());
+	}
+	
+	@GetMapping("/{studentId}/picture/list")
+	public ResponseEntity<?> getProfilePic(@PathVariable("studentId") String studentId){
+		Student newStudent = studentRepository.findById(studentId).get();
+		return ResponseEntity.ok(newStudent.getPhoto());
 	}
 	
 	@PostMapping("/{studentId}/schoolrecord")
