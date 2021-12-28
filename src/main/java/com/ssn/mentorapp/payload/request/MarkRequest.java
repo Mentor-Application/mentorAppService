@@ -21,6 +21,7 @@ public class MarkRequest {
 	private Long internalMark;
 	
 	private Long attendance;
+	
 
 	public String getMarkId() {
 		return markId;
@@ -105,8 +106,5 @@ public class MarkRequest {
 		this.internalMark = internalMark;
 	}
 
-	
-	
-	
 
 }

@@ -25,6 +25,9 @@ private String endsemId;
 	
 	private String gpa;
 	
+	private String attempt1;
+	
+	private String attempt2;
 
 	public String getEndsemId() {
 		return endsemId;
@@ -114,7 +117,22 @@ private String endsemId;
 	public void setGpa(String gpa) {
 		this.gpa = gpa;
 	}
+
+	public String getAttempt1() {
+		return attempt1;
+	}
+
+	public void setAttempt1(String attempt1) {
+		this.attempt1 = attempt1;
+	}
+
+	public String getAttempt2() {
+		return attempt2;
+	}
+
+	public void setAttempt2(String attempt2) {
+		this.attempt2 = attempt2;
+	}
 	
 
-	
 }

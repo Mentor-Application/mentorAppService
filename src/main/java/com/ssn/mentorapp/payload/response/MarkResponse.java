@@ -38,7 +38,6 @@ public class MarkResponse {
 		this.markId = markId;
 	}
 
-	
 
 	public String getSemesterName() {
 		return semesterName;
@@ -104,5 +103,5 @@ public class MarkResponse {
 		this.internalMark = internalMark;
 	}
 
-	
+
 }

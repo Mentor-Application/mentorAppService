@@ -34,6 +34,7 @@ public class MentorMeetingService {
 			meeting.get().setRemarks(mentorMeetingRequest.getRemarks());
 			meeting.get().setSemesterName(mentorMeetingRequest.getSemesterName());
 			meeting.get().setStudentId(mentorMeetingRequest.getStudentId());
+			meeting.get().setAdditionalinfo(mentorMeetingRequest.getAdditionalinfo());
 			return meetingRepository.save(meeting.get());
 		}
 		else {
@@ -45,6 +46,7 @@ public class MentorMeetingService {
 			newMeet.setRemarks(mentorMeetingRequest.getRemarks());
 			newMeet.setSemesterName(mentorMeetingRequest.getSemesterName());
 			newMeet.setStudentId(mentorMeetingRequest.getStudentId());
+			newMeet.setAdditionalinfo(mentorMeetingRequest.getAdditionalinfo());
 			return meetingRepository.save(newMeet);
 		}
 	}

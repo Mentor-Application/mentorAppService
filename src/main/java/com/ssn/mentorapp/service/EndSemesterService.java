@@ -32,6 +32,8 @@ public class EndSemesterService {
 			endsem.get().setCredits(endSemesterRequest.getCredits());
 			endsem.get().setGpa(endSemesterRequest.getGpa());
 			endsem.get().setTotalGradePoints(endSemesterRequest.getTotalGradePoints());
+			endsem.get().setAttempt1(endSemesterRequest.getAttempt1());
+			endsem.get().setAttempt2(endSemesterRequest.getAttempt2());
 			return endSemesterRespository.save(endsem.get());
 		}
 		else {
@@ -47,6 +49,8 @@ public class EndSemesterService {
 			endsemnew.setCredits(endSemesterRequest.getCredits());
 			endsemnew.setGpa(endSemesterRequest.getGpa());
 			endsemnew.setTotalGradePoints(endSemesterRequest.getTotalGradePoints());
+			endsemnew.setAttempt1(endSemesterRequest.getAttempt1());
+			endsemnew.setAttempt2(endSemesterRequest.getAttempt2());
 			return endSemesterRespository.save(endsemnew);
 		}
 	}

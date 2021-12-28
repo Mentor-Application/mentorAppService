@@ -72,7 +72,6 @@ public class MarkService {
 			markResponse.setAttendance(m.getAttendance());
 			return markResponse;
 		}).collect(Collectors.toList());
-
 		return markResponses;
 	}
 

@@ -28,6 +28,10 @@ public class Endsemester {
 	private String totalGradePoints;
 	
 	private String gpa;
+	
+	private String attempt1;
+	
+	private String attempt2;
 
 	
 	public String getCredits() {
@@ -118,8 +122,21 @@ public class Endsemester {
 		this.studentId = studentId;
 	}
 
-	
-	
-	
+	public String getAttempt1() {
+		return attempt1;
+	}
+
+	public void setAttempt1(String attempt1) {
+		this.attempt1 = attempt1;
+	}
+
+	public String getAttempt2() {
+		return attempt2;
+	}
+
+	public void setAttempt2(String attempt2) {
+		this.attempt2 = attempt2;
+	}
+
 
 }

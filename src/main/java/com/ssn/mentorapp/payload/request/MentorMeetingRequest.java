@@ -18,6 +18,8 @@ private String meetingId;
 	private String focusOnDiscussion;
 	
 	private String remarks;
+	
+	private String additionalinfo;
 
 	public String getMeetingId() {
 		return meetingId;
@@ -75,6 +77,14 @@ private String meetingId;
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+
+	public String getAdditionalinfo() {
+		return additionalinfo;
+	}
+
+	public void setAdditionalinfo(String additionalinfo) {
+		this.additionalinfo = additionalinfo;
 	}
 	
 	
