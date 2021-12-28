@@ -279,6 +279,7 @@ public class StudentService {
 			studentResponse.setGender(student.getGender());
 			studentResponse.setBranch(student.getBranch());
 			studentResponse.setSection(student.getSection());
+			studentResponse.setPhoto(student.getPhoto());
 //			studentResponse.setMobileNumber(student.getMobileNumber());
 //			studentResponse.setFatherMobileNumber(student.getFatherMobileNumber());
 //			studentResponse.setMotherMobileNumber(student.getMotherMobileNumber());
@@ -288,7 +289,7 @@ public class StudentService {
 //			studentResponse.setStudentType(student.getStudentType());
 //			studentResponse.setAddressForCommunication(student.getAddressForCommunication());
 //			studentResponse.setPeriodOfStudy(student.getPeriodOfStudy());
-//			studentResponse.setPhoto(student.getPhoto());
+			
 //			studentResponse.setRoomNumber(student.getRoomNumber());
 //			studentResponse.setBusRouteNumber(student.getBusRouteNumber());
 //			studentResponse.setEmailId(student.getEmailId());
