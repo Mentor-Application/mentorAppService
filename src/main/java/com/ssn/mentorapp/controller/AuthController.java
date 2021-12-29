@@ -35,6 +35,7 @@ import com.ssn.mentorapp.model.Role;
 import com.ssn.mentorapp.model.Student;
 import com.ssn.mentorapp.model.User;
 import com.ssn.mentorapp.payload.request.AuthenticationRequest;
+import com.ssn.mentorapp.payload.request.ResetPasswordRequest;
 import com.ssn.mentorapp.payload.request.SignUpRequest;
 import com.ssn.mentorapp.payload.response.AuthenticationResponse;
 import com.ssn.mentorapp.payload.response.MessageResponse;
@@ -188,6 +189,23 @@ public class AuthController {
 		userRepository.save(user);
 
 		return ResponseEntity.ok(user);
+	}
+	
+	@PostMapping("/changepassword")
+	public ResponseEntity<?> changePassword(@RequestBody ResetPasswordRequest resetPasswordRequest){
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(resetPasswordRequest.getEmail(),resetPasswordRequest.getPassword()));
+		if(authentication.isAuthenticated()) {
+			User user = userRepository.findByEmail(resetPasswordRequest.getEmail()).get();
+			user.setPassword(encoder.encode(resetPasswordRequest.getNewPassword()));
+			userRepository.save(user);
+			return ResponseEntity.ok(user);
+		}
+		else {
+			return ResponseEntity.badRequest().body(new MessageResponse("Old Password not correct" ));
+		}
+		
+		
 	}
 	
 	
